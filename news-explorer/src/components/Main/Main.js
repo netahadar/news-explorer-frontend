@@ -5,9 +5,9 @@ import backgroundPath from "../../images/searchFormBackground.png";
 
 export default function Main() {
   return (
-    <section>
+    <section className="search">
       <div
-        className="search"
+        className="search__container"
         style={{ backgroundImage: `url("${backgroundPath}")` }}
       >
         <SearchForm />

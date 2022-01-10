@@ -1,0 +1,26 @@
+.header__navigate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.header__navigate-link {
+    text-decoration: none;
+    color: white;
+    margin-right: 42px;
+}
+
+.header__navigate-button {
+    text-decoration: none;
+    color: white;
+    border: solid white 1px;
+    border-radius: 100px;
+    width: 176px;
+    background-color: transparent;
+    padding: 12px;
+    box-sizing: border-box;
+}
