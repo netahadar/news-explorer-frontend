@@ -1,0 +1,7 @@
+@import url(./vendors/normalize.css);
+@import url(./vendors/fonts/inter.css);
+@import url(./vendors/fonts/roboto-slab.css);
+@import url(./vendors/fonts/roboto.css);
+@import url(./components/App/App.css);
+@import url(./components/Main/Main.css);
+@import url(./components/SearchForm/SearchForm.css);

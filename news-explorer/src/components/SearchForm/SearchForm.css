@@ -1,0 +1,63 @@
+.search__form {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 608px;
+}
+
+.search__form-title {
+    font-family: 'Roboto Slab';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 60px;
+    line-height: 64px;
+    margin-bottom: 32px;
+    padding: 0;
+}
+
+.search__form-text {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 88px;
+    padding: 0;
+}
+
+.search__form-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.search__form-input {
+    background-color: white;
+    width: 100%;
+    max-height: 64px;
+    border-radius: 100px;
+    border-color: transparent;
+    padding-left: 24px;
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.search__form-submit {
+    background-color: #2F71E5;
+    width: 168px;
+    height: 64px;
+    border-radius: 100px;
+    border-color: transparent;
+    padding: auto;
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 24px;
+    color: white;
+    margin-left: -160px;
+}

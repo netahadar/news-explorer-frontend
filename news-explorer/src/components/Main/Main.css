@@ -1,0 +1,11 @@
+
+.search {
+    width: 1440px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    padding-top: 160px;
+    padding-bottom: 80px;
+}
