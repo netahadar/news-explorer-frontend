@@ -1,0 +1,30 @@
+.header__navigate-button {
+    color: white;
+    border: solid white 1px;
+    border-radius: 100px;
+    width: 176px;
+    background-color: transparent;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.header__navigate-button_loggedin {
+    width: 112px;
+    padding-right: 15px;
+    padding-left: 19px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__nevigate-button-icon {
+    width: 16px;
+    height: 16px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}

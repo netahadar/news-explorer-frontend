@@ -5,9 +5,14 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 
 function App() {
+
+  const [loggedIn, setLoggedIn] = React.useState(true);
+
+  const [userName, setUserName] = React.useState('Elise');
+
   return (
     <div className="content">
-      <Header />
+      <Header isLoggedIn={loggedIn} userName={userName}/>
       <Main />        
       {/* <Footer /> */}
     </div>
