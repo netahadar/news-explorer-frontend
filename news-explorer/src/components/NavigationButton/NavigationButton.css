@@ -28,3 +28,7 @@
     padding-top: 4px;
     padding-bottom: 4px;
 }
+
+.header__navigate-button:hover {
+    cursor: pointer;
+}

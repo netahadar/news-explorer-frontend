@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -14,7 +13,7 @@ function App() {
     <div className="content">
       <Header isLoggedIn={loggedIn} userName={userName}/>
       <Main />        
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

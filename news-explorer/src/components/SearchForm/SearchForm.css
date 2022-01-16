@@ -61,3 +61,7 @@
     color: white;
     margin-left: -160px;
 }
+
+.search__form-submit:hover {
+    cursor: pointer;
+}
