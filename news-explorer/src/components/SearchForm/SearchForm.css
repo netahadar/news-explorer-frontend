@@ -63,5 +63,11 @@
 }
 
 .search__form-submit:hover {
+    background-color: #347EFF;
     cursor: pointer;
 }
+
+/* For use in stage-3:
+.serch__form-submit_active {
+    background-color: #347EFF;
+ } */

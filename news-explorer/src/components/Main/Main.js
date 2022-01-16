@@ -5,8 +5,9 @@ import backgroundPath from "../../images/searchFormBackground.png";
 import About from "../About/About";
 import Preloader from "../Preloader/Preloader";
 import NotFound from "../NotFound/NotFound";
+import News from "../News/News";
 
-export default function Main() {
+export default function Main({isLoggedIn}) {
   return (
     <>
       <section className="search">
@@ -23,6 +24,9 @@ export default function Main() {
       {/* <section className="not-found">
         <NotFound />
       </section> */}
+      <section className="news">
+        <News />
+      </section>
       <section className="about">
         <About />
       </section>

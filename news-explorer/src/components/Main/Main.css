@@ -1,5 +1,6 @@
 .search {
     width: 100%;
+    position: relative;
 }
 
 .search__container {
@@ -17,6 +18,7 @@
 .about {
     width: 100%;
     display: flex;
+    position: relative;
 }
 
 .circle-preloader {
@@ -29,13 +31,25 @@
 	justify-content: center;
 	padding-top: 80px;
 	padding-bottom: 80px;
+    position: relative;
 } 
 
 .not-found{
     width: 100%;
+    position: relative;
     display: flex;
     justify-content: center;
     padding-top: 86px;
     padding-bottom: 80px;
     background-color: #F5F6F7;
+}
+
+.news {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #F5F6F7;
+    padding-top: 80px;
+    padding-bottom: 80px;
 }

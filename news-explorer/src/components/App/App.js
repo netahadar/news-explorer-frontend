@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="content">
       <Header isLoggedIn={loggedIn} userName={userName}/>
-      <Main />        
+      <Main isLoggedIn={loggedIn}/>        
       <Footer />
     </div>
   );

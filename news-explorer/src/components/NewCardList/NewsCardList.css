@@ -1,0 +1,10 @@
+.news__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 16px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto 84px;
+    width: calc(100% - 208px);
+}
