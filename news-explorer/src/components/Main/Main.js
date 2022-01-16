@@ -4,6 +4,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import backgroundPath from "../../images/searchFormBackground.png";
 import About from "../About/About";
 import Preloader from "../Preloader/Preloader";
+import NotFound from "../NotFound/NotFound";
 
 export default function Main() {
   return (
@@ -18,6 +19,9 @@ export default function Main() {
       </section>
       {/* <section className="circle-preloader">
         <Preloader />
+      </section> */}
+      {/* <section className="not-found">
+        <NotFound />
       </section> */}
       <section className="about">
         <About />

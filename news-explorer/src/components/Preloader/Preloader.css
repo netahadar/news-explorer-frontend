@@ -1,17 +1,3 @@
-.circle-preloader {
-	width: 100%;;
-	/* height: 282px; */
-	background-color: #F5F6F7;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding-top: 80px;
-	padding-bottom: 80px;
-	box-sizing: border-box;
-} 
-
 .circle-preloader__animation {
 	display: block;
 	width: 50px;
