@@ -11,6 +11,10 @@ export default function NewsCard({ card }) {
         type="button"
         aria-label="save button"
       ></button>
+      {/* TODO: add login state for the next div */}
+      <div className="news__tooltip">
+        <p className="news__tooltip-text">Sign in to save articles</p>
+      </div>
       <div
         className="news__image"
         style={{ backgroundImage: `url(${image})` }}

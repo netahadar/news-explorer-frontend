@@ -34,6 +34,30 @@
     background-image: url(../../images/saveButtonActive.svg);
  } */
 
+.news__tooltip {
+  width: 182px;
+  height: 40px;
+  background-color: white;
+  border-radius: 10px;
+  position: absolute;
+  top: 24px;
+  left: 149px;
+  display: none;
+}
+
+.news__tooltip-text {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  color: black;
+}
+
+.news__save-button:hover + .news__tooltip {
+  display: block;
+}
+
 .news__image {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
