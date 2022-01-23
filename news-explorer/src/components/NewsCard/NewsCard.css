@@ -10,10 +10,9 @@
   background-color: white;
 }
 
-.news__save-button {
+.news__card-button {
   width: 40px;
   height: 40px;
-  background-image: url(../../images/saveButton.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-color: white;
@@ -26,24 +25,38 @@
   border-color: transparent;
 }
 
-.news__save-button:hover {
+.news__card-button_type_save {
+  background-image: url(../../images/saveButton.svg);
+}
+
+.news__card-button_type_save:hover {
   background-image: url(../../images/saveButtonHover.svg);
   cursor: pointer;
 }
 
 /* for use in stage-3:
-.news__save-button_active {
+.news__card-button_active {
     background-image: url(../../images/saveButtonActive.svg);
  } */
 
+.news__card-button_type_delete {
+  background-image: url(../../images/trashButton.svg);
+}
+
+.news__card-button_type_delete:hover {
+  background-image: url(../../images/trashButtonHover.svg);
+  cursor: pointer;
+}
+
 .news__tooltip {
-  width: 182px;
   height: 40px;
   background-color: white;
   border-radius: 10px;
   position: absolute;
   top: 24px;
   left: 149px;
+  padding: 11px 20px;
+  box-sizing: border-box;
   display: none;
 }
 
@@ -54,9 +67,10 @@
   line-height: 14px;
   text-align: center;
   color: black;
+  margin: 0;
 }
 
-.news__save-button:hover + .news__tooltip {
+.news__card-button:hover + .news__tooltip {
   display: block;
 }
 
@@ -122,4 +136,25 @@
   margin-top: 18px;
   margin-bottom: 0;
   letter-spacing: 0.4px;
+}
+
+.news__keyword-container {
+  height: 40px;
+  background-color: white;
+  border-radius: 10px;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  padding: 8px 22px;
+  box-sizing: border-box;
+}
+
+.news__keyword {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+  color: black;
+  margin: 0;
 }

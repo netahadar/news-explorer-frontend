@@ -1,21 +1,31 @@
 import React from "react";
-import './NewsCard.css';
+import "./NewsCard.css";
 
 export default function NewsCard({ card }) {
+  const { image, date, title, text, source, keyword } = card;
+  const saveButtonClass = "news__card-button news__card-button_type_save"
+  const deleteButtonClass = "news__card-button news__card-button_type_delete"
 
-  const { image, date, title, text, source } = card;
-  
   return (
     <li className="news__item">
       <button
-        className="news__save-button"
+        className={Location.pathname === "/home" ?saveButtonClass :deleteButtonClass}
         type="button"
-        aria-label="save button"
+        aria-label="card button"
       ></button>
       {/* TODO: add login state for the next div */}
-      <div className="news__tooltip">
-        <p className="news__tooltip-text">Sign in to save articles</p>
+      <div className="news__tooltip" style={Location.pathname === "/articles" &&{padding: '11px 26px', left: '172px'}}>
+        <p className="news__tooltip-text">
+          {Location.pathname === "/articles"
+            ? "Remove from saved"
+            : "Sign in to save articles"}
+        </p>
       </div>
+      {Location.pathname === "/articles" &&
+        <div className="news__keyword-container">
+          <p className="news__keyword">{keyword}</p>
+        </div>
+      }
       <div
         className="news__image"
         style={{ backgroundImage: `url(${image})` }}

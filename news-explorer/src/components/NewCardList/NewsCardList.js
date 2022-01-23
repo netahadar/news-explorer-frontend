@@ -5,7 +5,7 @@ import NewsCard from "../NewsCard/NewsCard";
 
 export default function NewsCardList({cards, savedCards}) {
     //For testing:
-    Location.path = '/saved'; //'/main'
+    Location.path = '/articles'; //'/main'
 
     return(
         <ul className="news__list">
