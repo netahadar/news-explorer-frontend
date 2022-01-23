@@ -4,6 +4,7 @@ import './Header.css';
 
 export default function Header({ isLoggedIn, userName }) {
     const darkTextClass = "header__text header__text_theme_dark"
+    Location.pathname = "/articles";
     return(
         <div className="header">
             <div className="header__container">

@@ -87,7 +87,7 @@ const savedCards = [
     <div className="content">
       <Header isLoggedIn={loggedIn} userName={userName}/>
       {/* <Main isLoggedIn={loggedIn}/> cards={cards} savedCards={savedCards} */}
-      <SavedNews cards={cards} savedCards={savedCards} />        
+      <SavedNews cards={cards} savedCards={savedCards} userName={userName}/>        
       <Footer />
     </div>
   );
