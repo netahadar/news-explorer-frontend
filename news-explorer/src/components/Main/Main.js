@@ -7,7 +7,7 @@ import Preloader from "../Preloader/Preloader";
 import NotFound from "../NotFound/NotFound";
 import News from "../News/News";
 
-export default function Main({isLoggedIn}) {
+export default function Main({isLoggedIn, cards, savedCards}) {
   return (
     <>
       <section className="search">
@@ -24,9 +24,9 @@ export default function Main({isLoggedIn}) {
       {/* <section className="not-found">
         <NotFound />
       </section> */}
-      <section className="news">
-        <News />
-      </section>
+      {/* <section className="news">
+        <News cards={cards} savedCards={savedCards}/>
+      </section> */}
       <section className="about">
         <About />
       </section>

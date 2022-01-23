@@ -1,4 +1,5 @@
 import React from "react";
+import './NotFound.css';
 import notFoundPath from "../../images/notFound.svg";
 
 export default function NotFound() {

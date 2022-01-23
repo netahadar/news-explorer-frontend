@@ -15,10 +15,23 @@
     padding: 0;
 }
 
-.header__navigate-link_active {
+.header__navigate-link_theme_dark {
+    color: #1A1B22;
+}
+
+.header__navigate-link_home {
     border-bottom: solid 3px white;
     text-decoration: none;
     color: white;
+    margin-right: 42px;
+    margin-bottom: -26px;
+    padding-bottom: 23px;
+}
+
+.header__navigate-link_articles {
+    border-bottom: solid 3px #1A1B22;
+    text-decoration: none;
+    color: #1A1B22;
     margin-right: 42px;
     margin-bottom: -26px;
     padding-bottom: 23px;

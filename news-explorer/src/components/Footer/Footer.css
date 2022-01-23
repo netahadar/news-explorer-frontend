@@ -40,15 +40,20 @@
     margin: 0;
 }
 
-.footer__link:first-of-type{
+.footer__link:first-of-type {
     width: 112px;
 }
 
-.footer__link:last-of-type{
+.footer__link:nth-of-type(2) {
     width: 192px;
 }
 
-.footer__link:hover{
+.footer__link:nth-of-type(3) {
+    margin-right: 28px;
+    margin-left: 42px;
+}
+
+.footer__link:hover {
     cursor: pointer;
 }
 
@@ -61,7 +66,3 @@
     cursor: pointer;
 }
 
-.footer__icon:first-of-type {
-    margin-right: 28px;
-    margin-left: 42px;
-}

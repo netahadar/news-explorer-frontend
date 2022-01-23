@@ -1,4 +1,5 @@
 import React from "react";
+import './About.css';
 import mePath from "../../images/me.jpg";
 
 export default function About() {

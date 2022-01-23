@@ -1,20 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import NavigationButton from "../NavigationButton/NavigationButton";
+import './Navigation.css';
 
 export default function Navigation({ isLoggedIn, userName }) {
   // For testing:
-  Location.pathname = "/home";
+  Location.pathname = "/articles";
 
-  const activeLinkClass = "header__navigate-link_active";
+  const homeLinkClass = "header__navigate-link header__navigate-link_home";
+  const darkLinkClass = "header__navigate-link header__navigate-link_theme_dark"
+  const savedArticlesLinkClass = "header__navigate-link header__navigate-link_articles";
 
   return (
     <nav className="header__navigate">
       <a
         className={
           Location.pathname === "/home"
-            ? `header__navigate-link ${activeLinkClass}`
-            : "header__navigate-link"
+            ? homeLinkClass
+            : darkLinkClass
         }
         href="#"
       >
@@ -23,8 +26,8 @@ export default function Navigation({ isLoggedIn, userName }) {
       {isLoggedIn && 
         <a
           className={
-            Location.pathName === "/articles"
-              ? `header__navigate-link ${activeLinkClass}`
+            Location.pathname === "/articles"
+              ? savedArticlesLinkClass
               : "header__navigate-link"
           }
           href="#"

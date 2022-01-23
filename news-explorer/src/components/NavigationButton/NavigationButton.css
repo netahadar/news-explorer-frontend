@@ -14,6 +14,11 @@
     padding-bottom: 12px;
 }
 
+.header__navigate-button_theme_dark {
+    color: #1A1B22;
+    border: solid #1A1B22 1px;
+}
+
 .header__navigate-button_loggedin {
     width: 112px;
     padding-right: 15px;

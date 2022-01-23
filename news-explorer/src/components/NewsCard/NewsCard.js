@@ -1,4 +1,5 @@
 import React from "react";
+import './NewsCard.css';
 
 export default function NewsCard({ card }) {
 
