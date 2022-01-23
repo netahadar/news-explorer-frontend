@@ -1,9 +1,12 @@
 import React from "react";
+import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import "./App.css";
 import SavedNews from "../SavedNews/SavedNews";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import SigninPopup from "../SigninPopup/SigninPopup";
+import SignupPopup from "../SignupPopup/SignupPopup";
 import card1Path from "../../images/card1.jpg";
 import card2Path from "../../images/card2.jpg";
 import card3Path from "../../images/card3.jpg";
@@ -112,6 +115,9 @@ function App() {
       <Main isLoggedIn={loggedIn} cards={cards} savedCards={savedCards}/>
       {/* <SavedNews cards={cards} savedCards={savedCards} userName={userName} /> */}
       <Footer />
+      <SigninPopup />
+      <SignupPopup />
+      <InfoTooltip />
     </div>
   );
 }

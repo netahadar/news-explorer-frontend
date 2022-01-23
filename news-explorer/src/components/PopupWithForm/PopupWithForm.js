@@ -8,6 +8,7 @@ export default function PopupWithForm({
   onSubmit,
   title,
   buttonTitle,
+  linkTitle,
   children,
 }) {
   return (
@@ -31,7 +32,7 @@ export default function PopupWithForm({
               className="popup__form-link"
               href={Location.pathname === "/signin" ? "/signup" : "/signin"}
             >
-              {Location.pathname === "/signin" ? "Sign up" : "Sign in"}
+              {linkTitle}
             </a>
           </p>
         </form>
