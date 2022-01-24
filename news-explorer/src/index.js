@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
+import './styles/common-layout.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 

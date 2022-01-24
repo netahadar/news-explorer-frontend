@@ -4,7 +4,7 @@ import PopupWithForm from "../PopupWithForm/PopupWithForm";
 
 export default function SignupPopup(){
     //For testing:
-    const isOpen = true;
+    const isOpen = false;
 
     return (
         <PopupWithForm

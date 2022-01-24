@@ -46,6 +46,10 @@
     line-height: 22px;
 }
 
+.search__form-input:focus {
+    outline: none;
+}
+
 .search__form-submit {
     background-color: #2F71E5;
     width: 168px;
