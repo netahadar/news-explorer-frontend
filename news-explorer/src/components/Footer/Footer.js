@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React from "react";
-import "./Footer.css";
 import { Link } from "react-router-dom";
+import "./Footer.css";
 import githubPath from "../../images/github.svg";
 import facebookPath from "../../images/facebook.svg";
 
@@ -15,15 +15,15 @@ export default function Footer() {
         </p>
         <div className="footer__navigation">
           <div className="footer__links">
-            <a className="footer__link" href="#">
+            <Link className="footer__link" to="/">
               Home
-            </a>
-            <a className="footer__link" href="#">
+            </Link>
+            <a className="footer__link" href="https://practicum.yandex.com/">
               Practicum by Yandex
             </a>
           </div>
           <div className="footer__icons">
-            <a className="footer__icon" href="#">
+            <a className="footer__icon" href="https://github.com/netahadar">
               <img src={githubPath} alt="github"></img>
             </a>
             <a className="footer__icon" href="#">

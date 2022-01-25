@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { Link } from "react-router-dom";
 import NavigationButton from "../NavigationButton/NavigationButton";
 import './Navigation.css';
 
@@ -13,27 +14,27 @@ export default function Navigation({ isLoggedIn, userName }) {
 
   return (
     <nav className="header__navigate">
-      <a
+      <Link
         className={
           Location.pathname === "/"
             ? homeLinkClass
             : darkLinkClass
         }
-        href="#"
+        to="/"
       >
         Home
-      </a>
+      </Link>
       {isLoggedIn && 
-        <a
+        <Link
           className={
             Location.pathname === "/"
               ? "header__navigate-link"
               : savedArticlesLinkClass
           }
-          href="#"
+          to="/saved-news"
         >
           Saved Articles
-        </a>
+        </Link>
       }
       <NavigationButton isLoggedIn={isLoggedIn} userName={userName} />
     </nav>
