@@ -6,7 +6,6 @@
   color: #1a1b22;
   margin-bottom: 64px;
   margin-top: 0;
-  margin-left: 102px;
   text-align: start;
 }
 
@@ -34,7 +33,6 @@
   .news__title {
     font-size: 30px;
     line-height: 34px;
-    margin-left: 40px;
     margin-bottom: 32px;
   }
 
