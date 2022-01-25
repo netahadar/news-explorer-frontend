@@ -180,6 +180,10 @@
 }
 
 @media screen and (max-width: 950px) {
+  .news__item {
+    width: 224px;
+  }
+  
   .news__image {
     height: 150px;
   }
