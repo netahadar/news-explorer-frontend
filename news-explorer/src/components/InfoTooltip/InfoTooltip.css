@@ -35,3 +35,11 @@
   .popup__link:hover {
       cursor: pointer;
   }
+
+  @media screen and (max-width: 745px) {
+      .popup__frame {
+          padding: 43px 16px;
+          width: 320px;
+          margin-top: -230px;
+      }
+  }

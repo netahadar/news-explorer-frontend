@@ -45,3 +45,28 @@
     width: calc(100% - 80px);
   }
 }
+
+@media screen and (max-width: 745px) {
+  .header {
+    padding: 16px;
+  }
+
+  .header__container {
+    width: calc(100% - 16px);
+  }
+
+  .header__menu {
+    background-image: url('../../images/mobileMenu.png');
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    border: none;
+    padding: 0;
+  }
+
+  .header__menu_state_open {
+    background-image: url("../../images/closeIcon.svg");
+  }
+}

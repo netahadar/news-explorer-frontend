@@ -11,14 +11,14 @@ export default function NavigationButton({ isLoggedIn, userName }) {
     <button
       className={`header__navigate-button 
       ${isLoggedIn && loggedInButtonClass} 
-      ${Location.pathname === "/articles" && darkButtonClass}`
+      ${Location.pathname === "/saved-news" && darkButtonClass}`
     }
     >
       {isLoggedIn ? userName : "Sign In"}
       {isLoggedIn && (
         <img
           className="header__nevigate-button-icon"
-          src={Location.pathname === "/articles" ? darkLogOutPath :logOutPath}
+          src={Location.pathname === "/saved-news" ? darkLogOutPath :logOutPath}
           alt="log out"
         ></img>
       )}

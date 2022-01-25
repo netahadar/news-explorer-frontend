@@ -49,5 +49,19 @@
         line-height: 40px;
         margin-bottom: 16px;
     }
+}
 
+@media screen and (max-width: 745px) {
+    .about__image {
+        width: 272px;
+        height: 272px;
+        margin: 32px 24px 24px 24px;
+    }
+
+    .about__container{
+        width: 288px;
+    }
+    .about__text:last-of-type {
+        margin-bottom: 128px;
+    }
 }

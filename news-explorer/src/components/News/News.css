@@ -42,3 +42,14 @@
     margin-top: 48px;
   }
 }
+
+@media screen and (max-width: 745px) {
+  .news__title {
+    margin-bottom: 58px;
+  }
+
+  .news__show-button {
+    width: 288px;
+    margin-top: 16px;
+  }
+}

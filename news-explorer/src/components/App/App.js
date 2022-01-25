@@ -12,10 +12,27 @@ import card2Path from "../../images/card2.jpg";
 import card3Path from "../../images/card3.jpg";
 import card4Path from "../../images/card4.jpg";
 import card5Path from "../../images/card5.jpg";
+import MobileNavigation from "../MobileNavigation/MobileNavigation";
 
 function App() {
   //To-DO: make loggedin and cards lists as contexts
 
+  React.useEffect(() => {
+    window.addEventListener("resize", handleScreenResize);
+    return () => {
+      window.removeEventListener("resize", handleScreenResize);
+    }
+  }, []);
+
+  function handleScreenResize() {
+    if (window.innerWidth > 745){
+      setIsMobile(false);
+    } else {
+      setIsMobile(true);
+    }
+  }
+
+  const [isMobile, setIsMobile] = React.useState(true);
   const [loggedIn, setLoggedIn] = React.useState(true);
 
   const [userName, setUserName] = React.useState("Elise");
@@ -115,13 +132,14 @@ function App() {
 
   return (
     <div className="content">
-      <Header isLoggedIn={loggedIn} userName={userName} />
+      <Header isLoggedIn={loggedIn} userName={userName} isMobile={isMobile}/>
       <Main isLoggedIn={loggedIn} cards={cards} savedCards={savedCards}/>
       {/* <SavedNews cards={cards} savedCards={savedCards} userName={userName} /> */}
       <Footer />
       <SigninPopup />
       <SignupPopup />
-      <InfoTooltip />
+      <InfoTooltip isMobile={isMobile}/>
+      <MobileNavigation isLoggedIn={loggedIn} userName={userName}/>
     </div>
   );
 }

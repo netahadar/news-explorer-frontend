@@ -81,3 +81,34 @@
       padding: 32px 40px;
   }
 }
+
+@media screen and (max-width: 745px) {
+  .saved-news {
+    padding-top: 8px;
+    padding-bottom: 13px;
+  }
+
+  .saved-news__caption {
+    margin-left: 16px;
+    margin-bottom: 32px;
+  }
+
+  .saved-news__text {
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  .saved-news__title {
+    line-height: 34px;
+    width: 288px;
+    margin-bottom: 50px;
+  }
+
+  .saved-news__keywords {
+    margin-bottom: 32px;
+  }
+
+  .saved-news__container {
+    padding: 24px 16px 0;
+  }
+}

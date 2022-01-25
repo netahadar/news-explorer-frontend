@@ -35,7 +35,7 @@
 .search__form-input {
     background-color: white;
     width: 100%;
-    max-height: 64px;
+    height: 64px;
     border-radius: 100px;
     border-color: transparent;
     padding-left: 24px;
@@ -44,6 +44,7 @@
     font-style: normal;
     font-size: 16px;
     line-height: 22px;
+    box-sizing: border-box;
 }
 
 .search__form-input:focus {
@@ -93,11 +94,39 @@
      }
 
      .search__form-input {
-         max-height: 56px;
+         height: 56px;
      }
 
      .search__form-submit {
-         max-height: 56px;
+         height: 56px;
          margin-left: -150px;
+     }
+ }
+
+ @media screen and (max-width: 745px) {
+     .search__form {
+         width: 288px;
+     }
+
+     .search__form-title {
+         width: 285px;
+     }
+
+     .search__form-text {
+        margin-bottom: 122px;
+     }
+
+     .search__form-container {
+         flex-direction: column;
+     }
+
+     .search__form-input {
+         padding-left: 16px;
+         margin-bottom: 16px;
+     }
+
+     .search__form-submit {
+         margin-left: 0;
+         width: 100%;
      }
  }
