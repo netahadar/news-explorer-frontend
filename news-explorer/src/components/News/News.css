@@ -21,7 +21,7 @@
   font-size: 18px;
   line-height: 24px;
   text-align: center;
-  margin: 0 auto;
+  margin: 56px auto 0;
 }
 
 .news__show-button:hover {
@@ -39,5 +39,6 @@
   .news__show-button {
     width: 240px;
     height: 56px;
+    margin-top: 48px;
   }
 }
