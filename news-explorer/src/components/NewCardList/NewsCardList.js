@@ -3,17 +3,17 @@ import './NewsCardList.css';
 import NewsCard from "../NewsCard/NewsCard";
 
 
-export default function NewsCardList({cards, savedCards}) {
+export default function NewsCardList({ cards, savedCards }) {
     //For testing:
-    Location.path = '/articles'; //'/main'
+    Location.path = '/'; 
 
     return(
         <ul className="news__list">
-          {Location.path === 'main' ? cards.slice(0, 3).map((card) => {
+          {Location.path === '/' ? cards.slice(0, 3).map((card) => {
             return (
               <NewsCard
                 card={card}
-                key={card._id}
+                key={card.keyword}
               />
             );
           })
@@ -21,7 +21,7 @@ export default function NewsCardList({cards, savedCards}) {
           return (
             <NewsCard
               card={card}
-              key={card._id}
+              key={card.keyword}
             />
           );
         })

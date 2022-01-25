@@ -7,6 +7,7 @@ export default function SavedNews({ cards, savedCards, userName }) {
   const keywordsList = ["Nature", "Yellowstone", "word", "another word"]; //TO-DO: at stage 3 will be taken from API
   const keywords = keywordsList.slice(0, 2).join(", ");
   const num = keywordsList.length - 2;
+  
   return (
     <section className="saved-news">
       <div className="saved-news__caption">

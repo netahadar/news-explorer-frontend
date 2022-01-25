@@ -17,7 +17,6 @@
     font-weight: 400;
     line-height: 22px;
     color: #B6BCBF;
-    padding: 0;
     margin-top: 32px;
     margin-bottom: 26px;
 }
@@ -36,7 +35,6 @@
     font-weight: 400;
     line-height: 24px;
     text-align: center;
-    padding: 0;
     margin: 0;
 }
 
@@ -66,3 +64,32 @@
     cursor: pointer;
 }
 
+@media screen and (max-width: 950px) {
+   
+    .footer__container {
+        width: calc(100% - 80px);
+    }
+
+    .footer__copyrights {
+        margin-top: 24px;
+        margin-bottom: 18px;
+    }
+
+    .footer__links {
+        margin-top: 21px;
+        margin-bottom: 21px;
+    }
+
+    .footer__link:first-of-type {
+        width: 88px;
+    }
+
+    .footer__link:nth-of-type(2) {
+        width: 172px;
+    }
+
+    .footer__link:nth-of-type(3) {
+        margin-left: 26px;
+        margin-right: 27px;
+    }
+}

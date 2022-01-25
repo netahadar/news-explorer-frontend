@@ -53,3 +53,16 @@
     padding-top: 80px;
     padding-bottom: 80px;
 }
+
+@media screen and (max-width: 950px) {
+    .search__container {
+        padding-top: 104px;
+        padding-bottom: 48px;
+        margin-top: -70px;
+    }
+
+    .news {
+        padding-top: 40px;
+        padding-bottom: 56px;
+    }
+}

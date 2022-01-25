@@ -5,7 +5,7 @@ import './Navigation.css';
 
 export default function Navigation({ isLoggedIn, userName }) {
   // For testing:
-  Location.pathname = "/articles";
+  Location.pathname = "/";
 
   const homeLinkClass = "header__navigate-link header__navigate-link_home";
   const darkLinkClass = "header__navigate-link header__navigate-link_theme_dark"
@@ -15,7 +15,7 @@ export default function Navigation({ isLoggedIn, userName }) {
     <nav className="header__navigate">
       <a
         className={
-          Location.pathname === "/home"
+          Location.pathname === "/"
             ? homeLinkClass
             : darkLinkClass
         }
@@ -26,9 +26,9 @@ export default function Navigation({ isLoggedIn, userName }) {
       {isLoggedIn && 
         <a
           className={
-            Location.pathname === "/articles"
-              ? savedArticlesLinkClass
-              : "header__navigate-link"
+            Location.pathname === "/"
+              ? "header__navigate-link"
+              : savedArticlesLinkClass
           }
           href="#"
         >

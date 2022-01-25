@@ -1,6 +1,7 @@
 import React from "react";
 import "./SignupPopup.css"
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
+import PopupFormInputs from "../PopupFormInputs/PopupFormInputs";
 
 export default function SignupPopup(){
     //For testing:
@@ -16,31 +17,7 @@ export default function SignupPopup(){
         //   onClose={onClose}
         //   onSubmit={handleSubmit}
         >
-          <p className="popup__form-input-title">Email</p>
-          <input
-            className="popup__form-input"
-            id="email-input"
-            type="email"
-            name="email"
-            // value={name}
-            // onChange={handleNameChange}
-            placeholder="Enter email"
-            required
-          />
-          <span id="email-input-error"></span>
-          <p className="popup__form-input-title">Password</p>
-          <input
-            className="popup__form-input"
-            id="password-input"
-            type="password"
-            name="password"
-            // value={description}
-            // onChange={handleDescriptionChange}
-            placeholder="Enter password"
-            minLength="8"
-            required
-          />
-          <span id="password-input-error"></span>
+          <PopupFormInputs />
           <p className="popup__form-input-title">Username</p>
           <input
             className="popup__form-input"

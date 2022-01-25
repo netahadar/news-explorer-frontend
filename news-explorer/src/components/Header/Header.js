@@ -4,12 +4,12 @@ import './Header.css';
 
 export default function Header({ isLoggedIn, userName }) {
     const darkTextClass = "header__text header__text_theme_dark"
-    Location.pathname = "/articles";
+    Location.pathname = "/";
     return(
         <div className="header">
             <div className="header__container">
                 {/* TO-DO: change next p to LINK after adding routes */}
-                <p className={Location.pathname === "/articles" ?darkTextClass :"header__text"}>NewsExplorer</p>
+                <p className={Location.pathname === "/" ?"header__text" :darkTextClass}>NewsExplorer</p>
                 <Navigation isLoggedIn= { isLoggedIn } userName={userName}/>
             </div>
         </div>

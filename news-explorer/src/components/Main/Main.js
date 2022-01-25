@@ -8,6 +8,7 @@ import NotFound from "../NotFound/NotFound";
 import News from "../News/News";
 
 export default function Main({isLoggedIn, cards, savedCards}) {
+
   return (
     <>
       <section className="search">
@@ -24,9 +25,9 @@ export default function Main({isLoggedIn, cards, savedCards}) {
       {/* <section className="not-found">
         <NotFound />
       </section> */}
-      {/* <section className="news">
+      <section className="news">
         <News cards={cards} savedCards={savedCards}/>
-      </section> */}
+      </section>
       <section className="about">
         <About />
       </section>

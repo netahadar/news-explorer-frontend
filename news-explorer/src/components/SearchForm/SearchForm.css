@@ -13,7 +13,7 @@
     font-size: 60px;
     line-height: 64px;
     margin-bottom: 32px;
-    padding: 0;
+    margin-top: 0;
 }
 
 .search__form-text {
@@ -23,7 +23,7 @@
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 88px;
-    padding: 0;
+    margin-top: 0;
 }
 
 .search__form-container {
@@ -75,3 +75,29 @@
 .serch__form-submit_active {
     background-color: #347EFF;
  } */
+
+ @media screen and (max-width: 950px) {
+     .search__form {
+         width: 448px;
+     }
+
+     .search__form-title {
+         width: 385px;
+         font-size: 36px;
+         line-height: 40px;
+         margin-bottom: 16px;
+     }
+
+     .search__form-text {
+         margin-bottom: 48px;
+     }
+
+     .search__form-input {
+         max-height: 56px;
+     }
+
+     .search__form-submit {
+         max-height: 56px;
+         margin-left: -150px;
+     }
+ }
