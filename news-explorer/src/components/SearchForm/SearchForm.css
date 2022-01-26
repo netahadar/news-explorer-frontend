@@ -48,7 +48,7 @@
 }
 
 .search__form-input:focus {
-    outline: outset 3px #347EFF;
+    outline: outset 2px #347EFF;
 }
 
 .search__form-submit {
