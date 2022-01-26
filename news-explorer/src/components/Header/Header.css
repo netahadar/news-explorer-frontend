@@ -68,6 +68,10 @@
     padding: 0;
   }
 
+  .header__menu:hover {
+    cursor: pointer;
+  }
+
   .header__menu_state_open {
     background-image: url("../../images/closeIcon.svg");
   }
