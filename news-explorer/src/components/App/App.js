@@ -61,7 +61,7 @@ function App() {
   const [isMobile, setIsMobile] = React.useState(true);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userName, setUserName] = React.useState("Elise");
- 
+
   //Popups open/close states
   const [isTootipPopupOpen, setIsTootipPopupOpen] = React.useState(false);
   const [isSignInPopupOpen, setIsSignInPopupOpen] = React.useState(false);
@@ -175,7 +175,7 @@ function App() {
   }
 
   function handleSignInClick() {
-    setIsSignUpPopupOpen(false);
+    closeAllPopups();
     setIsSignInPopupOpen(true);
   }
 
@@ -237,7 +237,10 @@ function App() {
             isOpen={isTootipPopupOpen}
             onClose={closeAllPopups}
           />
-          <MobileNavigation isOpen={isMenuPopupOpen} onClose={closeAllPopups} />
+          <MobileNavigation
+            isOpen={isMenuPopupOpen}
+            onSignInClick={handleSignInClick}
+          />
         </div>
       </LoggedInContext.Provider>
     </UserContext.Provider>
