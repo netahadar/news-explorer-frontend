@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React from "react";
@@ -18,15 +19,15 @@ export default function Footer() {
             <Link className="footer__link" to="/">
               Home
             </Link>
-            <a className="footer__link" href="https://practicum.yandex.com/">
+            <a className="footer__link" href="https://practicum.yandex.com/" target="_blank">
               Practicum by Yandex
             </a>
           </div>
           <div className="footer__icons">
-            <a className="footer__icon" href="https://github.com/netahadar">
+            <a className="footer__icon" href="https://github.com/netahadar" target="_blank">
               <img src={githubPath} alt="github"></img>
             </a>
-            <a className="footer__icon" href="#">
+            <a className="footer__icon" href="https://facebook.com/" target="_blank">
               <img src={facebookPath} alt="facebook"></img>
             </a>
           </div>

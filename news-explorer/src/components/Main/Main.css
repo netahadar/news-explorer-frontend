@@ -5,6 +5,7 @@
 
 .search__container {
     width: 100%;
+    background-image: url("../../images/searchFormBackground.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

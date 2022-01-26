@@ -35,10 +35,9 @@
   cursor: pointer;
 }
 
-/* for use in stage-3:
 .news__card-button_active {
     background-image: url(../../images/saveButtonActive.svg);
- } */
+ }
 
 .news__card-button_type_delete {
   background-image: url(../../images/trashButton.svg);
@@ -169,7 +168,7 @@
   margin: 0;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1360px) {
   .news__item-description{
     width: 250px;
   }
@@ -179,7 +178,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1040px) {
   .news__item {
     width: 224px;
   }

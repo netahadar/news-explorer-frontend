@@ -1,33 +1,33 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { LoggedInContext } from "../../context/LoggdInContext";
 import NavigationButton from "../NavigationButton/NavigationButton";
-import './Navigation.css';
+import "./Navigation.css";
 
-export default function Navigation({ isLoggedIn, userName }) {
-  // For testing:
-  Location.pathname = "/";
+export default function Navigation({ onSignInClick }) {
+  const location = useLocation();
+
+  const loggedIn = React.useContext(LoggedInContext);
 
   const homeLinkClass = "header__navigate-link header__navigate-link_home";
-  const darkLinkClass = "header__navigate-link header__navigate-link_theme_dark"
-  const savedArticlesLinkClass = "header__navigate-link header__navigate-link_articles";
+  const darkLinkClass =
+    "header__navigate-link header__navigate-link_theme_dark";
+  const savedArticlesLinkClass =
+    "header__navigate-link header__navigate-link_articles";
 
   return (
     <nav className="header__navigate">
       <Link
-        className={
-          Location.pathname === "/"
-            ? homeLinkClass
-            : darkLinkClass
-        }
+        className={location.pathname === "/" ? homeLinkClass : darkLinkClass}
         to="/"
       >
         Home
       </Link>
-      {isLoggedIn && 
+      {loggedIn && (
         <Link
           className={
-            Location.pathname === "/"
+            location.pathname === "/"
               ? "header__navigate-link"
               : savedArticlesLinkClass
           }
@@ -35,8 +35,10 @@ export default function Navigation({ isLoggedIn, userName }) {
         >
           Saved Articles
         </Link>
-      }
-      <NavigationButton isLoggedIn={isLoggedIn} userName={userName} />
+      )}
+      <NavigationButton
+        onSignInClick={onSignInClick}
+      />
     </nav>
   );
 }

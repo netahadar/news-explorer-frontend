@@ -1,10 +1,15 @@
 import React from "react";
 import "./SavedNews.css";
 import NewsCardList from "../NewCardList/NewsCardList";
+import { UserContext } from "../../context/UserContext";
 
-export default function SavedNews({ cards, savedCards, userName }) {
+export default function SavedNews({ cards, savedCards }) {
+
+  const userName = React.useContext(UserContext);
+
   // For tests:
-  const keywordsList = ["Nature", "Yellowstone", "word", "another word"]; //TO-DO: at stage 3 will be taken from API
+  const keywordsList = ["Nature", "Yellowstone", "word", "another word"]; 
+    
   const keywords = keywordsList.slice(0, 2).join(", ");
   const num = keywordsList.length - 2;
   

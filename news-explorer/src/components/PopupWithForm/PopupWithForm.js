@@ -1,14 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./PopupWithForm.css";
 
 export default function PopupWithForm({
-  isOpen,
   name,
-  onClose,
-  onSubmit,
   title,
   buttonTitle,
   linkTitle,
+  isOpen,
+  onClose,
+  onLinkClick,
+  onSubmit,
   children,
 }) {
   return (
@@ -25,15 +27,11 @@ export default function PopupWithForm({
           <button className="popup__form-submit-button" type="submit">
             {buttonTitle}
           </button>
-          {/* change next a to link */}
           <p className="popup__form-text">
             or<span>&nbsp;</span>
-            <a
-              className="popup__form-link"
-              href={Location.pathname === "/signin" ? "/signup" : "/signin"}
-            >
+            <Link className="popup__form-link" to="/" onClick={onLinkClick}>
               {linkTitle}
-            </a>
+            </Link>
           </p>
         </form>
       </div>

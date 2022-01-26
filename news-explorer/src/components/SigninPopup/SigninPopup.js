@@ -2,9 +2,7 @@ import React from "react";
 import PopupFormInputs from "../PopupFormInputs/PopupFormInputs";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 
-export default function SigninPopup(){
-    //For testing:
-    const isOpen = false;
+export default function SigninPopup({ isOpen, onClose, onSignUpClick }){
 
     return (
         <PopupWithForm
@@ -13,8 +11,9 @@ export default function SigninPopup(){
           buttonTitle="Sign in"
           linkTitle="Sign up"
           isOpen={isOpen}
-        //   onClose={onClose}
-        //   onSubmit={handleSubmit}
+          onClose={onClose}
+          onLinkClick={onSignUpClick}
+          // onSubmit={handleSubmit}
         >
           <PopupFormInputs />
         </PopupWithForm>

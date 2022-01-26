@@ -1,19 +1,20 @@
 import React from "react";
 import './NewsCardList.css';
 import NewsCard from "../NewsCard/NewsCard";
+import { useLocation } from "react-router-dom";
 
 
 export default function NewsCardList({ cards, savedCards }) {
-    //For testing:
-    Location.path = '/'; 
+
+  const location = useLocation();
 
     return(
         <ul className="news__list">
-          {Location.path === '/' ? cards.slice(0, 3).map((card) => {
+          {location.path === '/' ? cards.slice(0, 3).map((card) => {
             return (
               <NewsCard
                 card={card}
-                key={card.keyword}
+                key={card._id}
               />
             );
           })
@@ -21,7 +22,7 @@ export default function NewsCardList({ cards, savedCards }) {
           return (
             <NewsCard
               card={card}
-              key={card.keyword}
+              key={card._id}
             />
           );
         })

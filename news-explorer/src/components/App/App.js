@@ -14,6 +14,8 @@ import card3Path from "../../images/card3.jpg";
 import card4Path from "../../images/card4.jpg";
 import card5Path from "../../images/card5.jpg";
 import MobileNavigation from "../MobileNavigation/MobileNavigation";
+import { UserContext } from "../../context/UserContext";
+import { LoggedInContext } from "../../context/LoggdInContext";
 
 function App() {
   //To-DO: make loggedin and cards lists as contexts
@@ -25,18 +27,46 @@ function App() {
     };
   }, []);
 
-  function handleScreenResize() {
-    if (window.innerWidth > 745) {
-      setIsMobile(false);
-    } else {
-      setIsMobile(true);
-    }
-  }
+  //Check for screen size on mounting
+  React.useEffect(() => {
+    handleScreenResize();
+  }, []);
+
+  //Close popups via Escape key
+  React.useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
+  }, []);
+
+  //Close popup by clicking the area outside its borders
+  React.useEffect(() => {
+    const closeByClickOutside = (e) => {
+      if (e.target.classList.contains("popup")) {
+        closeAllPopups();
+      }
+    };
+
+    document.addEventListener("click", closeByClickOutside);
+
+    return () => document.removeEventListener("keydown", closeByClickOutside);
+  }, []);
 
   const [isMobile, setIsMobile] = React.useState(true);
-  const [loggedIn, setLoggedIn] = React.useState(true);
-
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [userName, setUserName] = React.useState("Elise");
+ 
+  //Popups open/close states
+  const [isTootipPopupOpen, setIsTootipPopupOpen] = React.useState(false);
+  const [isSignInPopupOpen, setIsSignInPopupOpen] = React.useState(false);
+  const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
+  const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
 
   const cards = [
     {
@@ -90,6 +120,7 @@ function App() {
   attributes to nature educator Jon Young, is for both adults and children to find...`,
       source: "TREEHUGGER",
       keyword: "Nature",
+      _id: "1",
     },
     {
       image: `${card2Path}`,
@@ -99,6 +130,7 @@ function App() {
   the sound of the ocean, the scents of a forest, the way dappled sunlight dances through leaves.`,
       source: "NATIONAL GEOGRAPHIC",
       keyword: "Nature",
+      _id: "2",
     },
     {
       image: `${card4Path}`,
@@ -108,6 +140,7 @@ function App() {
       photographers who just completed a project and book they call their love letter to...`,
       source: "NATIONAL GEOGRAPHIC",
       keyword: "Yellowstone",
+      _id: "3",
     },
     {
       image: `${card3Path}`,
@@ -118,6 +151,7 @@ function App() {
   whereby the hiker will be...`,
       source: "NATIONAL PARKS TRAVELER",
       keyword: "Parks",
+      _id: "4",
     },
     {
       image: `${card5Path}`,
@@ -128,26 +162,85 @@ function App() {
       the stars to guide them. `,
       source: "TREEHUGGER",
       keyword: "Photography",
+      _id: "5",
     },
   ];
 
+  function handleScreenResize() {
+    if (window.innerWidth > 745) {
+      setIsMobile(false);
+    } else {
+      setIsMobile(true);
+    }
+  }
+
+  function handleSignInClick() {
+    setIsSignUpPopupOpen(false);
+    setIsSignInPopupOpen(true);
+  }
+
+  function handleSignUpClick() {
+    setIsSignInPopupOpen(false);
+    setIsSignUpPopupOpen(true);
+  }
+
+  function handleRegister() {
+    //if register ok......
+    setIsSignUpPopupOpen(false);
+    setIsTootipPopupOpen(true);
+  }
+
+  function handleMenuClick() {
+    setIsMenuPopupOpen(true);
+  }
+
+  function closeAllPopups() {
+    setIsMenuPopupOpen(false);
+    setIsSignInPopupOpen(false);
+    setIsSignUpPopupOpen(false);
+    setIsTootipPopupOpen(false);
+  }
+
   return (
-    <div className="content">
-      <Header isLoggedIn={loggedIn} userName={userName} isMobile={isMobile} />
-      <Switch>
-        <Route path="/saved-news">
-          <SavedNews cards={cards} savedCards={savedCards} userName={userName} />
-        </Route>
-        <Route path="/">
-          <Main isLoggedIn={loggedIn} cards={cards} savedCards={savedCards} />
-        </Route>
-      </Switch>
-      <Footer />
-      <SigninPopup />
-      <SignupPopup />
-      <InfoTooltip isMobile={isMobile} />
-      <MobileNavigation isLoggedIn={loggedIn} userName={userName} />
-    </div>
+    <UserContext.Provider value={userName}>
+      <LoggedInContext.Provider value={loggedIn}>
+        <div className="content">
+          <Header
+            isMobile={isMobile}
+            onSignInClick={handleSignInClick}
+            onMenuClick={handleMenuClick}
+            onClose={closeAllPopups}
+            isNavOpen={isMenuPopupOpen}
+          />
+          <Switch>
+            <Route path="/saved-news">
+              <SavedNews cards={cards} savedCards={savedCards} />
+            </Route>
+            <Route path="/">
+              <Main cards={cards} savedCards={savedCards} />
+            </Route>
+          </Switch>
+          <Footer />
+          <SigninPopup
+            isOpen={isSignInPopupOpen}
+            onClose={closeAllPopups}
+            onSignUpClick={handleSignUpClick}
+          />
+          <SignupPopup
+            isOpen={isSignUpPopupOpen}
+            onClose={closeAllPopups}
+            onSubmit={handleRegister}
+            onSignInClick={handleSignInClick}
+          />
+          <InfoTooltip
+            isMobile={isMobile}
+            isOpen={isTootipPopupOpen}
+            onClose={closeAllPopups}
+          />
+          <MobileNavigation isOpen={isMenuPopupOpen} onClose={closeAllPopups} />
+        </div>
+      </LoggedInContext.Provider>
+    </UserContext.Provider>
   );
 }
 

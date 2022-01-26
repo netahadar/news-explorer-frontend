@@ -2,11 +2,12 @@ import React from "react";
 import Navigation from "../Navigation/Navigation";
 import "./MobileNavigation.css";
 
-export default function MobileNavigation({ name, isOpen, isLoggedIn, userName }) {
+export default function MobileNavigation({ isOpen }) {
+
   return (
-    <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
+    <div className={`popup popup_type_nav ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__navigation-container">
-        <Navigation isLoggedIn={isLoggedIn} userName={userName}/>
+        <Navigation />
       </div>
     </div>
   );

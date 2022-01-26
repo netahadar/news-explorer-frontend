@@ -3,9 +3,7 @@ import "./SignupPopup.css"
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 import PopupFormInputs from "../PopupFormInputs/PopupFormInputs";
 
-export default function SignupPopup(){
-    //For testing:
-    const isOpen = false;
+export default function SignupPopup({ isOpen, onClose, onSubmit, onSignInClick }){
 
     return (
         <PopupWithForm
@@ -14,8 +12,9 @@ export default function SignupPopup(){
           buttonTitle="Sign up"
           linkTitle="Sign in"
           isOpen={isOpen}
-        //   onClose={onClose}
-        //   onSubmit={handleSubmit}
+          onClose={onClose}
+          onSubmit={onSubmit}
+          onLinkClick={onSignInClick}
         >
           <PopupFormInputs />
           <p className="popup__form-input-title">Username</p>

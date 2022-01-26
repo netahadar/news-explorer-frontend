@@ -1,9 +1,17 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
+import { LoggedInContext } from "../../context/LoggdInContext";
 import "./NewsCard.css";
 
 export default function NewsCard({ card }) {
   const { image, date, title, text, source, keyword } = card;
+
+  const location = useLocation();
+
+  const loggedIn = React.useContext(LoggedInContext);
+
   const saveButtonClass = "news__card-button news__card-button_type_save";
+  // const activeSaveButtonClass = "news__card-button news__card-button_active";
   const deleteButtonClass = "news__card-button news__card-button_type_delete";
   const tooltipSavedClass = "news__tooltip news__tooltip_theme_saved";
 
@@ -11,24 +19,23 @@ export default function NewsCard({ card }) {
     <li className="news__item">
       <button
         className={
-          Location.pathname === "/" ? saveButtonClass : deleteButtonClass
+          location.pathname === "/" ? saveButtonClass : deleteButtonClass
         }
         type="button"
         aria-label="card button"
       ></button>
-      {/* TODO: add login state for the next div */}
       <div
         className={
-          Location.pathname === "/" ? "news__tooltip" : tooltipSavedClass
+          location.pathname === "/" ? "news__tooltip" : tooltipSavedClass
         }
       >
         <p className="news__tooltip-text">
-          {Location.pathname === "/"
-            ? "Sign in to save articles"
+          {location.pathname === "/"
+            ? `${loggedIn ? "Save" :"Sign in to save articles"}`
             : "Remove from saved"}
         </p>
       </div>
-      {Location.pathname === "/saved-news" && (
+      {location.pathname === "/saved-news" && (
         <div className="news__keyword-container">
           <p className="news__keyword">{keyword}</p>
         </div>

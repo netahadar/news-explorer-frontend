@@ -2,13 +2,12 @@ import React from "react";
 import "./InfoTooltip.css";
 
 export default function InfoTooltip({
-  name,
   isOpen,
   onClose,
   isMobile,
 }) {
   return (
-    <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
+    <div className={`popup popup_type_tooltip ${isOpen ? "popup_opened" : ""}`}>
       {isMobile && (
         <button
           className="popup__close-button"
