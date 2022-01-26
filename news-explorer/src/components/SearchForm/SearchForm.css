@@ -48,7 +48,7 @@
 }
 
 .search__form-input:focus {
-    outline: none;
+    outline: outset 3px #347EFF;
 }
 
 .search__form-submit {
@@ -72,10 +72,6 @@
     cursor: pointer;
 }
 
-/* For use in stage-3:
-.serch__form-submit_active {
-    background-color: #347EFF;
- } */
 
  @media screen and (max-width: 950px) {
      .search__form {
