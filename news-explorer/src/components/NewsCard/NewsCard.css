@@ -196,6 +196,12 @@
     font-size: 22px;
     line-height: 24px;
     height: 72px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
 
   .news__item-text {
@@ -237,11 +243,6 @@
   .news__item-title {
     margin-top: 10px;
     height: 48px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
 
