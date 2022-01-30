@@ -17,7 +17,7 @@ export default function Main({ cards, savedCards, onSearch, isNewsOpen }) {
       {/* <section className="circle-preloader">
         <Preloader />
       </section> */}
-      {cards.length === 0 && (
+      {cards.length === 0 && isNewsOpen &&(
         <section className="not-found">
           <NotFound />
         </section>
