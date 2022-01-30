@@ -17,7 +17,7 @@ export default function Header({
   const headerMenuDark = "header__menu header__menu__theme_dark";
 
   return (
-    <div className="header">
+    <header className="header">
       <div className="header__container">
         <Link
           className={`${isNavOpen  ?"header__text" :location.pathname === "/" ? "header__text" : darkTextClass}`}
@@ -39,6 +39,6 @@ export default function Header({
           />
         )}
       </div>
-    </div>
+    </header>
   );
 }

@@ -9,12 +9,12 @@ import facebookPath from "../../images/facebook.svg";
 
 export default function Footer() {
   return (
-    <section className="footer">
+    <footer className="footer">
       <div className="footer__container">
         <p className="footer__copyrights">
           © 2022 Supersite, Powered by News API
         </p>
-        <div className="footer__navigation">
+        <nav className="footer__navigation">
           <div className="footer__links">
             <Link className="footer__link" to="/">
               Home
@@ -31,8 +31,8 @@ export default function Footer() {
               <img src={facebookPath} alt="facebook"></img>
             </a>
           </div>
-        </div>
+        </nav>
       </div>
-    </section>
+    </footer>
   );
 }
