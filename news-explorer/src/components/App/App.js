@@ -59,7 +59,7 @@ function App() {
   }, []);
 
   const [isMobile, setIsMobile] = React.useState(true);
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
   const [userName, setUserName] = React.useState("Elise");
 
   //Popups open/close states

@@ -22,7 +22,7 @@ export default function NavigationButton({ onSignInClick }) {
       ${loggedIn && loggedInButtonClass} 
       ${location.pathname === "/saved-news" && darkButtonClass}`
     }
-    onClick={!loggedIn && onSignInClick}
+    onClick={!loggedIn  ?onSignInClick :undefined}
     >
       {loggedIn ? userName : "Sign In"}
       {loggedIn && (

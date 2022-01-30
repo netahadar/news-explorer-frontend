@@ -51,7 +51,7 @@
   width: 100%;
   position: relative;
   background-color: #f5f6f7;
-  padding: 62px 106px;
+  padding: 62px 0;
   box-sizing: border-box;
 }
 
@@ -78,7 +78,7 @@
   }
 
   .saved-news__container {
-      padding: 32px 40px;
+      padding: 32px 0;
   }
 }
 
@@ -109,6 +109,7 @@
   }
 
   .saved-news__container {
-    padding: 24px 16px 0;
+    padding-top: 24px;
+    padding-bottom: 0;
   }
 }

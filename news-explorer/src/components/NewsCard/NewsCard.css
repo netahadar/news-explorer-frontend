@@ -179,8 +179,8 @@
 }
 
 @media screen and (max-width: 1040px) {
-  .news__item {
-    width: 224px;
+  .news__card-button {
+    top: 8px;
   }
   
   .news__image {
@@ -218,11 +218,14 @@
   }
 }
 
-@media screen and (max-width: 745px) {
-  .news__item {
-    width: 100%;
+@media screen and (max-width: 900px) {
+  .news__card-button {
+    left: 176px;
   }
+}
 
+@media screen and (max-width: 745px) {
+  
   .news__image {
     height: 196px;
   }

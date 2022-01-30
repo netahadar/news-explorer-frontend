@@ -20,16 +20,16 @@ export default function Header({
     <div className="header">
       <div className="header__container">
         <Link
-          className={location.pathname === "/" ? "header__text" : darkTextClass}
+          className={`${isNavOpen  ?"header__text" :location.pathname === "/" ? "header__text" : darkTextClass}`}
           to="/"
         >
           NewsExplorer
         </Link>
         {isMobile ? (
           <button
-            className={`header__menu ${isNavOpen && navOpenClass} ${
-              location.pathname === "/saved-news" && headerMenuDark
-            } `}
+            className={`header__menu ${
+              isNavOpen  ?navOpenClass :location.pathname === "/saved-news" && headerMenuDark
+            }`}
             type="button"
             onClick={isNavOpen ? onClose : onMenuClick}
           ></button>
