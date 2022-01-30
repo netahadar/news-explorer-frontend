@@ -72,6 +72,9 @@
     cursor: pointer;
 }
 
+.search__form-submit_active {
+    background-color: #2A65CC;
+}
 
  @media screen and (max-width: 950px) {
      .search__form {
