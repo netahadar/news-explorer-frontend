@@ -8,9 +8,9 @@ export default function NewsCardList({ cards, savedCards }) {
 
   const location = useLocation();
 
-    return(
+  return(
         <ul className="news__list">
-          {location.path === '/' ? cards.slice(0, 3).map((card) => {
+          {location.pathname === '/' ? cards.slice(0, 3).map((card) => {
             return (
               <NewsCard
                 card={card}
