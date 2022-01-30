@@ -28,6 +28,12 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 1360px) {
+  .news__title {
+    margin-left: 40px;
+  }
+}
+
 @media screen and (max-width: 950px) {
   .news__title {
     font-size: 30px;

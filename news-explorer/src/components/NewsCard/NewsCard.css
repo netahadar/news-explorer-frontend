@@ -36,8 +36,8 @@
 }
 
 .news__card-button_active {
-    background-image: url(../../images/saveButtonActive.svg);
- }
+  background-image: url(../../images/saveButtonActive.svg);
+}
 
 .news__card-button_type_delete {
   background-image: url(../../images/trashButton.svg);
@@ -116,6 +116,12 @@
   margin-top: 12px;
   margin-bottom: 0;
   height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .news__item-text {
@@ -169,7 +175,7 @@
 }
 
 @media screen and (max-width: 1360px) {
-  .news__item-description{
+  .news__item-description {
     width: 250px;
   }
 
@@ -182,12 +188,12 @@
   .news__card-button {
     top: 8px;
   }
-  
+
   .news__image {
     height: 150px;
   }
 
-  .news__item-description{
+  .news__item-description {
     width: 192px;
     margin: 16px;
   }
@@ -196,11 +202,6 @@
     font-size: 22px;
     line-height: 24px;
     height: 72px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
 
@@ -216,7 +217,7 @@
     white-space: nowrap;
     max-width: 100%;
   }
-  
+
   .news__keyword-container {
     padding: 8px 20px;
     top: 8px;
@@ -231,7 +232,6 @@
 }
 
 @media screen and (max-width: 745px) {
-  
   .news__image {
     height: 196px;
   }
