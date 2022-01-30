@@ -63,7 +63,7 @@ function App() {
   const [userName, setUserName] = React.useState("Elise");
 
   //Popups open/close states
-  const [isTootipPopupOpen, setIsTootipPopupOpen] = React.useState(false);
+  const [isTootipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
   const [isSignInPopupOpen, setIsSignInPopupOpen] = React.useState(false);
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
@@ -180,14 +180,14 @@ function App() {
   }
 
   function handleSignUpClick() {
-    setIsSignInPopupOpen(false);
+    closeAllPopups();
     setIsSignUpPopupOpen(true);
   }
 
   function handleRegister() {
     //if register ok......
     setIsSignUpPopupOpen(false);
-    setIsTootipPopupOpen(true);
+    setIsTooltipPopupOpen(true);
   }
 
   function handleMenuClick() {
@@ -198,7 +198,11 @@ function App() {
     setIsMenuPopupOpen(false);
     setIsSignInPopupOpen(false);
     setIsSignUpPopupOpen(false);
-    setIsTootipPopupOpen(false);
+    setIsTooltipPopupOpen(false);
+  }
+
+  function handleLogOut() {
+    setLoggedIn(false);
   }
 
   return (
@@ -211,6 +215,7 @@ function App() {
             onMenuClick={handleMenuClick}
             onClose={closeAllPopups}
             isNavOpen={isMenuPopupOpen}
+            onLogOut={handleLogOut}
           />
           <Switch>
             <Route path="/saved-news">
@@ -233,13 +238,15 @@ function App() {
             onSignInClick={handleSignInClick}
           />
           <InfoTooltip
-            isMobile={isMobile}
             isOpen={isTootipPopupOpen}
             onClose={closeAllPopups}
+            isMobile={isMobile}
+            onSignInClick={handleSignInClick}
           />
           <MobileNavigation
             isOpen={isMenuPopupOpen}
             onSignInClick={handleSignInClick}
+            onLogOut={handleLogOut}
           />
         </div>
       </LoggedInContext.Provider>

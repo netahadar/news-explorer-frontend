@@ -9,6 +9,7 @@ export default function Header({
   onMenuClick,
   onClose,
   isNavOpen,
+  onLogOut
 }) {
   const location = useLocation();
 
@@ -36,6 +37,7 @@ export default function Header({
         ) : (
           <Navigation
             onSignInClick={onSignInClick}
+            onLogOut={onLogOut}
           />
         )}
       </div>

@@ -6,7 +6,7 @@ import { UserContext } from "../../context/UserContext";
 import { LoggedInContext } from "../../context/LoggdInContext";
 import { useLocation } from "react-router-dom";
 
-export default function NavigationButton({ onSignInClick }) {
+export default function NavigationButton({ onSignInClick, onLogOut }) {
 
   const location = useLocation();
 
@@ -22,7 +22,7 @@ export default function NavigationButton({ onSignInClick }) {
       ${loggedIn && loggedInButtonClass} 
       ${location.pathname === "/saved-news" && darkButtonClass}`
     }
-    onClick={!loggedIn  ?onSignInClick :undefined}
+    onClick={!loggedIn  ?onSignInClick :onLogOut}
     >
       {loggedIn ? userName : "Sign In"}
       {loggedIn && (

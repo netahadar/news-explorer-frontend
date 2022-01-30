@@ -5,6 +5,7 @@ export default function InfoTooltip({
   isOpen,
   onClose,
   isMobile,
+  onSignInClick
 }) {
   return (
     <div className={`popup popup_type_tooltip ${isOpen ? "popup_opened" : ""}`}>
@@ -12,7 +13,7 @@ export default function InfoTooltip({
         <button
           className="popup__close-button"
           type="button"
-          // onClick={onClose}
+          onClick={onClose}
         ></button>
       )}
       <div className="popup__frame">
@@ -20,14 +21,14 @@ export default function InfoTooltip({
           <button
             className="popup__close-button"
             type="button"
-            // onClick={onClose}
+            onClick={onClose}
           ></button>
         )}
 
         <h2 className="popup__title">Registration successfully completed!</h2>
-        <a className="popup__link" href="/signin">
+        <button className="popup__signin-button" onClick={onSignInClick}>
           Sign in
-        </a>
+        </button>
       </div>
     </div>
   );

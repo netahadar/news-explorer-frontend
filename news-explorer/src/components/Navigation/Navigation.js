@@ -5,7 +5,7 @@ import { LoggedInContext } from "../../context/LoggdInContext";
 import NavigationButton from "../NavigationButton/NavigationButton";
 import "./Navigation.css";
 
-export default function Navigation({ onSignInClick }) {
+export default function Navigation({ onSignInClick, onLogOut }) {
   const location = useLocation();
 
   const loggedIn = React.useContext(LoggedInContext);
@@ -38,6 +38,7 @@ export default function Navigation({ onSignInClick }) {
       )}
       <NavigationButton
         onSignInClick={onSignInClick}
+        onLogOut={onLogOut}
       />
     </nav>
   );
