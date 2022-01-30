@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import MobileNavigation from "../MobileNavigation/MobileNavigation";
 import Navigation from "../Navigation/Navigation";
 import "./Header.css";
 
@@ -41,6 +42,11 @@ export default function Header({
           />
         )}
       </div>
+      <MobileNavigation
+            isOpen={isNavOpen}
+            onSignInClick={onSignInClick}
+            onLogOut={onLogOut}
+          />
     </header>
   );
 }

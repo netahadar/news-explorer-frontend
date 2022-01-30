@@ -243,11 +243,6 @@ function App() {
             isMobile={isMobile}
             onSignInClick={handleSignInClick}
           />
-          <MobileNavigation
-            isOpen={isMenuPopupOpen}
-            onSignInClick={handleSignInClick}
-            onLogOut={handleLogOut}
-          />
         </div>
       </LoggedInContext.Provider>
     </UserContext.Provider>
