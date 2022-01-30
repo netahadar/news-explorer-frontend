@@ -68,8 +68,11 @@ function App() {
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
 
-  //Cards states:
+  //Cards states
   const [cards, setCards] = React.useState([]);
+
+  //Sections appearance states
+  const [isNewsOpen, setIsNewsOpen] = React.useState(false)
 
   const savedCards = [
     {
@@ -170,6 +173,7 @@ function App() {
     newsApi.getArticles(keyword)
     .then((res) => {
       setCards(res.articles);
+      setIsNewsOpen(true);
     })
     .catch(console.log)
   }
@@ -191,7 +195,7 @@ function App() {
               <SavedNews cards={cards} savedCards={savedCards} />
             </Route>
             <Route path="/">
-              <Main cards={cards} savedCards={savedCards} onSearch={handleSearch}/>
+              <Main cards={cards} savedCards={savedCards} onSearch={handleSearch} isNewsOpen={isNewsOpen}/>
             </Route>
           </Switch>
           <Footer />
