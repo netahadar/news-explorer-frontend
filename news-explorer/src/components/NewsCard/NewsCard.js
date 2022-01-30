@@ -26,14 +26,18 @@ export default function NewsCard({ card, keyword = "nature" }) {
       ></button>
       <div
         className={
-          location.pathname === "/" ? "news__tooltip" : tooltipSavedClass
+          !loggedIn
+            ? "news__tooltip"
+            : location.pathname === "/saved-news" ?tooltipSavedClass :undefined
         }
       >
-        <p className="news__tooltip-text">
-          {location.pathname === "/"
-            ? `${loggedIn ? "Save" :"Sign in to save articles"}`
-            : "Remove from saved"}
-        </p>
+        {!loggedIn ? (
+          <p className="news__tooltip-text">Sign in to save articles</p>
+        ) : (
+          location.pathname === "/saved-news" && (
+            <p className="news__tooltip-text">Remove from saved</p>
+          )
+        )}
       </div>
       {location.pathname === "/saved-news" && (
         <div className="news__keyword-container">
