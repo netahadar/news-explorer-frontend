@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 import { LoggedInContext } from "../../context/LoggdInContext";
 import "./NewsCard.css";
 
-export default function NewsCard({ card }) {
-  const { image, date, title, text, source, keyword } = card;
+export default function NewsCard({ card, keyword = "nature" }) {
+  const { description, publishedAt, source, title, urlToImage } = card;
 
   const location = useLocation();
 
@@ -42,13 +42,13 @@ export default function NewsCard({ card }) {
       )}
       <div
         className="news__image"
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${urlToImage})` }}
       />
       <div className="news__item-description">
-        <p className="news__item-date">{date}</p>
+        <p className="news__item-date">{publishedAt}</p>
         <h3 className="news__item-title">{title}</h3>
-        <p className="news__item-text">{text}</p>
-        <p className="news__item-source">{source}</p>
+        <p className="news__item-text">{description}</p>
+        <p className="news__item-source">{source.name}</p>
       </div>
     </li>
   );

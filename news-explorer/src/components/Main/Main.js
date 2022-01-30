@@ -6,7 +6,7 @@ import Preloader from "../Preloader/Preloader";
 import NotFound from "../NotFound/NotFound";
 import News from "../News/News";
 
-export default function Main({ cards, savedCards}) {
+export default function Main({ cards, savedCards, onSearch}) {
 
   return (
     <>
@@ -14,7 +14,7 @@ export default function Main({ cards, savedCards}) {
         <div
           className="search__container"
         >
-          <SearchForm />
+          <SearchForm onSearch={onSearch}/>
         </div>
       </section>
       {/* <section className="circle-preloader">

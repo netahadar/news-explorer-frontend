@@ -13,9 +13,9 @@ import card2Path from "../../images/card2.jpg";
 import card3Path from "../../images/card3.jpg";
 import card4Path from "../../images/card4.jpg";
 import card5Path from "../../images/card5.jpg";
-import MobileNavigation from "../MobileNavigation/MobileNavigation";
 import { UserContext } from "../../context/UserContext";
 import { LoggedInContext } from "../../context/LoggdInContext";
+import newsApi from "../../utils/NewsApi";
 
 function App() {
   //To-DO: make loggedin and cards lists as contexts
@@ -68,47 +68,8 @@ function App() {
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
 
-  const cards = [
-    {
-      image: `${card1Path}`,
-      date: "November 4, 2020",
-      title: "Everyone Needs a Special 'Sit Spot' in Nature",
-      text: `Ever since I read Richard Louv's influential book, "Last Child in the Woods," 
-    the idea of having a special "sit spot" has stuck with me. This advice, which Louv 
-    attributes to nature educator Jon Young, is for both adults and children to find...`,
-      source: "TREEHUGGER",
-      _id: "1",
-    },
-    {
-      image: `${card2Path}`,
-      date: "February 19, 2019",
-      title: "Nature makes you better",
-      text: `We all know how good nature can make us feel. We have known it for millennia: 
-    the sound of the ocean, the scents of a forest, the way dappled sunlight dances through leaves.`,
-      source: "NATIONAL GEOGRAPHIC",
-      _id: "2",
-    },
-    {
-      image: `${card3Path}`,
-      date: "October 19, 2020",
-      title: "Grand Teton Renews Historic Crest Trail",
-      text: `“The linking together of the Cascade and Death Canyon trails, at their heads, 
-    took place on October 1, 1933, and marked the first step in the realization of a plan 
-    whereby the hiker will be...`,
-      source: "NATIONAL PARKS TRAVELER",
-      _id: "3",
-    },
-    {
-      image: `${card3Path}`,
-      date: "October 19, 2020",
-      title: "Grand Teton Renews Historic Crest Trail",
-      text: `“The linking together of the Cascade and Death Canyon trails, at their heads, 
-    took place on October 1, 1933, and marked the first step in the realization of a plan 
-    whereby the hiker will be...`,
-      source: "NATIONAL PARKS TRAVELER",
-      _id: "4",
-    },
-  ];
+  //Cards states:
+  const [cards, setCards] = React.useState([]);
 
   const savedCards = [
     {
@@ -205,6 +166,14 @@ function App() {
     setLoggedIn(false);
   }
 
+  function handleSearch(keyword) {
+    newsApi.getArticles(keyword)
+    .then((res) => {
+      setCards(res.articles);
+    })
+    .catch(console.log)
+  }
+
   return (
     <UserContext.Provider value={userName}>
       <LoggedInContext.Provider value={loggedIn}>
@@ -222,7 +191,7 @@ function App() {
               <SavedNews cards={cards} savedCards={savedCards} />
             </Route>
             <Route path="/">
-              <Main cards={cards} savedCards={savedCards} />
+              <Main cards={cards} savedCards={savedCards} onSearch={handleSearch}/>
             </Route>
           </Switch>
           <Footer />

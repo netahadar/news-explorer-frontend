@@ -116,6 +116,12 @@
   margin-top: 12px;
   margin-bottom: 0;
   height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .news__item-text {
