@@ -58,6 +58,16 @@ function App() {
     return () => document.removeEventListener("keydown", closeByClickOutside);
   }, []);
 
+  //Show recent search results
+  React.useEffect(() => {
+    const recoveredCards = localStorage.getItem("cards");
+
+    if (recoveredCards) {
+      setCards(JSON.parse(recoveredCards));
+      setIsNewsOpen(true);
+    }
+  }, []);
+
   const [isMobile, setIsMobile] = React.useState(true);
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [userName, setUserName] = React.useState("Elise");
@@ -174,25 +184,30 @@ function App() {
   }
 
   function handleSearch(keyword) {
-    setIsNewsOpen(false);
+    setIsNewsOpen(false);     //Close results block between searches
     setIsPreloaderOpen(true);
     newsApi
-      .getArticles(keyword)
+      .getArticles(keyword) //Get articles from news API
       .then((res) => {
         setCards(res.articles);
-        localStorage.setItem("cards", cards);
+        if (res.articles.length !== 0) {
+          localStorage.setItem("cards", JSON.stringify(cards)); //save cards in local storage for next mounting
+        } else {
+          localStorage.removeItem("cards"); //If no articles found- clear local storage
+        }
         setIsPreloaderOpen(false);
         setIsNewsOpen(true);
       })
       .catch((err) => {
         setIsPreloaderOpen(false);
-        setIsErrorMessageOpen(true);
+        setIsErrorMessageOpen(true); //Show error message block
+        localStorage.removeItem("cards"); 
         console.log(err);
       });
   }
 
   function handleShowMoreClick() {
-    if (cards.length-cardIndex <= 3) {
+    if (cards.length - cardIndex <= 3) {
       setIsShowMoreActive(false);
       setCardIndex(cards.length);
     } else {
