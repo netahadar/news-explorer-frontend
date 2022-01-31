@@ -14,6 +14,9 @@ export default function Main({
   isNewsOpen,
   isPreloaderOpen,
   isErrorMessageOpen,
+  isShowMoreActive,
+  cardIndex,
+  onShowMoreClick,
 }) {
   return (
     <>
@@ -39,7 +42,13 @@ export default function Main({
       )}
       {cards.length !== 0 && isNewsOpen && (
         <section className="news">
-          <News cards={cards} savedCards={savedCards} />
+          <News
+            cards={cards}
+            savedCards={savedCards}
+            isShowMoreActive={isShowMoreActive}
+            cardIndex={cardIndex}
+            onShowMoreClick={onShowMoreClick}
+          />
         </section>
       )}
       <section className="about">

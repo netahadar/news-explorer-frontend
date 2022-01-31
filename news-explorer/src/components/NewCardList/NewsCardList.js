@@ -4,13 +4,13 @@ import NewsCard from "../NewsCard/NewsCard";
 import { useLocation } from "react-router-dom";
 
 
-export default function NewsCardList({ cards, savedCards }) {
+export default function NewsCardList({ cards, savedCards, index }) {
 
   const location = useLocation();
 
   return(
         <ul className="news__list">
-          {location.pathname === '/' ? cards.slice(0, 3).map((card) => {
+          {location.pathname === '/' ? cards.slice(0, index).map((card) => {
             return (
               <NewsCard
                 card={card}

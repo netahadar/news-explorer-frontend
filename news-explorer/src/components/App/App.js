@@ -61,6 +61,8 @@ function App() {
   const [isMobile, setIsMobile] = React.useState(true);
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [userName, setUserName] = React.useState("Elise");
+  const [cardIndex, setCardIndex] = React.useState(3);
+  const [isShowMoreActive, setIsShowMoreActive] = React.useState(true);
 
   //Popups open/close states
   const [isTootipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
@@ -189,6 +191,14 @@ function App() {
       });
   }
 
+  function handleShowMoreClick() {
+    if (cards.length-cardIndex <= 3) {
+      setIsShowMoreActive(false);
+      setCardIndex(cards.length);
+    } else {
+      setCardIndex(cardIndex + 3);
+    }
+  }
   return (
     <UserContext.Provider value={userName}>
       <LoggedInContext.Provider value={loggedIn}>
@@ -213,6 +223,9 @@ function App() {
                 isNewsOpen={isNewsOpen}
                 isPreloaderOpen={isPreloaderOpen}
                 isErrorMessageOpen={isErrorMessageOpen}
+                isShowMoreActive={isShowMoreActive}
+                cardIndex={cardIndex}
+                onShowMoreClick={handleShowMoreClick}
               />
             </Route>
           </Switch>
