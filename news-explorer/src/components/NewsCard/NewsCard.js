@@ -1,6 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { LoggedInContext } from "../../context/LoggdInContext";
+import { SAVEBUTTONCLASS,
+  DELETEBUTTONCLASS,
+  TOOLTIPSAVEDCLASS } from '../../constants';
 import "./NewsCard.css";
 
 export default function NewsCard({ card, keyword = "nature" }) {
@@ -10,16 +13,22 @@ export default function NewsCard({ card, keyword = "nature" }) {
 
   const loggedIn = React.useContext(LoggedInContext);
 
-  const saveButtonClass = "news__card-button news__card-button_type_save";
-  // const activeSaveButtonClass = "news__card-button news__card-button_active";
-  const deleteButtonClass = "news__card-button news__card-button_type_delete";
-  const tooltipSavedClass = "news__tooltip news__tooltip_theme_saved";
+  function getMonthName(month){
+    const d = new Date();
+    d.setMonth(month-1);
+    const monthName = d.toLocaleString("en-US", {month: "long"});
+    return monthName;
+  }
+
+  const dateList = publishedAt.replace(/T[0-9]+:[0-9]+:[0-9]+Z/, "").split('-')
+  const month = getMonthName(dateList[1]);
+  const date = `${month} ${dateList[2]}, ${dateList[0]}`;
 
   return (
     <li className="news__item">
       <button
         className={
-          location.pathname === "/" ? saveButtonClass : deleteButtonClass
+          location.pathname === "/" ? SAVEBUTTONCLASS : DELETEBUTTONCLASS
         }
         type="button"
         aria-label="card button"
@@ -28,7 +37,7 @@ export default function NewsCard({ card, keyword = "nature" }) {
         className={
           !loggedIn
             ? "news__tooltip"
-            : location.pathname === "/saved-news" ?tooltipSavedClass :undefined
+            : location.pathname === "/saved-news" ?TOOLTIPSAVEDCLASS :undefined
         }
       >
         {!loggedIn ? (
@@ -49,10 +58,10 @@ export default function NewsCard({ card, keyword = "nature" }) {
         style={{ backgroundImage: `url(${urlToImage})` }}
       />
       <div className="news__item-description">
-        <p className="news__item-date">{publishedAt}</p>
+        <p className="news__item-date">{date}</p>
         <h3 className="news__item-title">{title}</h3>
         <p className="news__item-text">{description}</p>
-        <p className="news__item-source">{source.name}</p>
+        <p className="news__item-source">{source.name.toUpperCase()}</p>
       </div>
     </li>
   );
