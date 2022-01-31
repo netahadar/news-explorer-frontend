@@ -5,8 +5,16 @@ import About from "../About/About";
 import Preloader from "../Preloader/Preloader";
 import NotFound from "../NotFound/NotFound";
 import News from "../News/News";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
-export default function Main({ cards, savedCards, onSearch, isNewsOpen }) {
+export default function Main({
+  cards,
+  savedCards,
+  onSearch,
+  isNewsOpen,
+  isPreloaderOpen,
+  isErrorMessageOpen,
+}) {
   return (
     <>
       <section className="search">
@@ -14,10 +22,17 @@ export default function Main({ cards, savedCards, onSearch, isNewsOpen }) {
           <SearchForm onSearch={onSearch} />
         </div>
       </section>
-      {/* <section className="circle-preloader">
-        <Preloader />
-      </section> */}
-      {cards.length === 0 && isNewsOpen &&(
+      {isPreloaderOpen && (
+        <section className="circle-preloader">
+          <Preloader />
+        </section>
+      )}
+      {isErrorMessageOpen && (
+        <section className="error-message">
+          <ErrorMessage />
+        </section>
+      )}
+      {cards.length === 0 && isNewsOpen && (
         <section className="not-found">
           <NotFound />
         </section>

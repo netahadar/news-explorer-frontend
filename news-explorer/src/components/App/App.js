@@ -72,7 +72,9 @@ function App() {
   const [cards, setCards] = React.useState([]);
 
   //Sections appearance states
-  const [isNewsOpen, setIsNewsOpen] = React.useState(false)
+  const [isNewsOpen, setIsNewsOpen] = React.useState(false);
+  const [isPreloaderOpen, setIsPreloaderOpen] = React.useState(false);
+  const [isErrorMessageOpen, setIsErrorMessageOpen] = React.useState(false);
 
   const savedCards = [
     {
@@ -170,12 +172,21 @@ function App() {
   }
 
   function handleSearch(keyword) {
-    newsApi.getArticles(keyword)
-    .then((res) => {
-      setCards(res.articles);
-      setIsNewsOpen(true);
-    })
-    .catch(console.log)
+    setIsNewsOpen(false);
+    setIsPreloaderOpen(true);
+    newsApi
+      .getArticles(keyword)
+      .then((res) => {
+        setCards(res.articles);
+        localStorage.setItem("cards", cards);
+        setIsPreloaderOpen(false);
+        setIsNewsOpen(true);
+      })
+      .catch((err) => {
+        setIsPreloaderOpen(false);
+        setIsErrorMessageOpen(true);
+        console.log(err);
+      });
   }
 
   return (
@@ -195,7 +206,14 @@ function App() {
               <SavedNews cards={cards} savedCards={savedCards} />
             </Route>
             <Route path="/">
-              <Main cards={cards} savedCards={savedCards} onSearch={handleSearch} isNewsOpen={isNewsOpen}/>
+              <Main
+                cards={cards}
+                savedCards={savedCards}
+                onSearch={handleSearch}
+                isNewsOpen={isNewsOpen}
+                isPreloaderOpen={isPreloaderOpen}
+                isErrorMessageOpen={isErrorMessageOpen}
+              />
             </Route>
           </Switch>
           <Footer />
