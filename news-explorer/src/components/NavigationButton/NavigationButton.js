@@ -2,7 +2,7 @@ import React from "react";
 import logOutPath from "../../images/logout.svg";
 import darkLogOutPath from "../../images/darkLogout.svg";
 import "./NavigationButton.css";
-import { UserContext } from "../../context/UserContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { LoggedInContext } from "../../context/LoggdInContext";
 import { useLocation } from "react-router-dom";
 
@@ -10,7 +10,7 @@ export default function NavigationButton({ onSignInClick, onLogOut }) {
 
   const location = useLocation();
 
-  const userName = React.useContext(UserContext);
+  const currentUser = React.useContext(CurrentUserContext);
   const loggedIn = React.useContext(LoggedInContext);
 
   const loggedInButtonClass = "header__navigate-button_loggedin";
@@ -24,7 +24,7 @@ export default function NavigationButton({ onSignInClick, onLogOut }) {
     }
     onClick={!loggedIn  ?onSignInClick :onLogOut}
     >
-      {loggedIn ? userName : "Sign In"}
+      {loggedIn ? currentUser.name : "Sign In"}
       {loggedIn && (
         <img
           className="header__nevigate-button-icon"

@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function PopupFormInputs() {
+export default function PopupFormInputs({ values, handleChange }) {
+
   return (
     <>
       <p className="popup__form-input-title">Email</p>
@@ -9,8 +10,8 @@ export default function PopupFormInputs() {
         id="email-input"
         type="email"
         name="email"
-        // value={name}
-        // onChange={handleNameChange}
+        // value={values.email}
+        onChange={handleChange}
         placeholder="Enter email"
         required
       />
@@ -21,8 +22,8 @@ export default function PopupFormInputs() {
         id="password-input"
         type="password"
         name="password"
-        // value={description}
-        // onChange={handleDescriptionChange}
+        // value={values.password}
+        onChange={handleChange}
         placeholder="Enter password"
         minLength="8"
         required

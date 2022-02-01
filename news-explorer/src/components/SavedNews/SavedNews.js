@@ -1,11 +1,11 @@
 import React from "react";
 import "./SavedNews.css";
 import NewsCardList from "../NewCardList/NewsCardList";
-import { UserContext } from "../../context/UserContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 export default function SavedNews({ cards, savedCards }) {
 
-  const userName = React.useContext(UserContext);
+  const currentUser = React.useContext(CurrentUserContext);
 
   // For tests:
   const keywordsList = ["Nature", "Yellowstone", "word", "another word"]; 
@@ -18,7 +18,7 @@ export default function SavedNews({ cards, savedCards }) {
       <div className="saved-news__caption">
         <p className="saved-news__text">Saved articles</p>
         <h2 className="saved-news__title">
-          {userName}, you have 5 saved articles
+          {currentUser.name}, you have 5 saved articles
         </h2>
         <p className="saved-news__keywords">
           By keywords:

@@ -13,12 +13,36 @@ import card2Path from "../../images/card2.jpg";
 import card3Path from "../../images/card3.jpg";
 import card4Path from "../../images/card4.jpg";
 import card5Path from "../../images/card5.jpg";
-import { UserContext } from "../../context/UserContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { LoggedInContext } from "../../context/LoggdInContext";
 import newsApi from "../../utils/NewsApi";
+import * as auth from "../../utils/auth";
+import mainApi from "../../utils/MainApi";
 
 function App() {
-  //To-DO: make loggedin and cards lists as contexts
+  const [isMobile, setIsMobile] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({
+    name: "",
+    _id: "",
+  });
+  const [token, setToken] = React.useState(localStorage.getItem("jwt"));
+  const [cardIndex, setCardIndex] = React.useState(3);
+  const [isShowMoreActive, setIsShowMoreActive] = React.useState(true);
+
+  //Popups open/close states
+  const [isTootipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
+  const [isSignInPopupOpen, setIsSignInPopupOpen] = React.useState(false);
+  const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
+  const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
+
+  //Cards states
+  const [cards, setCards] = React.useState([]);
+
+  //Sections appearance states
+  const [isNewsOpen, setIsNewsOpen] = React.useState(false);
+  const [isPreloaderOpen, setIsPreloaderOpen] = React.useState(false);
+  const [isErrorMessageOpen, setIsErrorMessageOpen] = React.useState(false);
 
   React.useEffect(() => {
     window.addEventListener("resize", handleScreenResize);
@@ -68,25 +92,28 @@ function App() {
     }
   }, []);
 
-  const [isMobile, setIsMobile] = React.useState(true);
-  const [loggedIn, setLoggedIn] = React.useState(true);
-  const [userName, setUserName] = React.useState("Elise");
-  const [cardIndex, setCardIndex] = React.useState(3);
-  const [isShowMoreActive, setIsShowMoreActive] = React.useState(true);
+  // Get user info
+  React.useEffect(() => {
+    if (token) {
+      mainApi.getUserInfo().then((res) => {
+        if (res) {
+          setCurrentUser({
+            name: res.name,
+            _id: res._id,
+          });
+          setLoggedIn(true)
+        }
+      });
+    }
+  }, [token]);
 
-  //Popups open/close states
-  const [isTootipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
-  const [isSignInPopupOpen, setIsSignInPopupOpen] = React.useState(false);
-  const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
-  const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
-
-  //Cards states
-  const [cards, setCards] = React.useState([]);
-
-  //Sections appearance states
-  const [isNewsOpen, setIsNewsOpen] = React.useState(false);
-  const [isPreloaderOpen, setIsPreloaderOpen] = React.useState(false);
-  const [isErrorMessageOpen, setIsErrorMessageOpen] = React.useState(false);
+  // Update api headers
+  React.useEffect(() => {
+    mainApi._headers = {
+      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+  }, [token]);
 
   const savedCards = [
     {
@@ -162,10 +189,30 @@ function App() {
     setIsSignUpPopupOpen(true);
   }
 
-  function handleRegister() {
-    //if register ok......
-    setIsSignUpPopupOpen(false);
-    setIsTooltipPopupOpen(true);
+  function handleRegister(values) {
+    auth
+      .register(values)
+      .then(() => {
+        setIsSignUpPopupOpen(false);
+        setIsTooltipPopupOpen(true);
+      })
+      .catch(console.log);
+  }
+
+  function handleLogin(values) {
+    auth
+      .authorize(values)
+      .then((res) => {
+        setToken(res);
+        setLoggedIn(true);
+        closeAllPopups();
+      })
+      .catch(console.log);
+  }
+
+  function handleLogOut() {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
   }
 
   function handleMenuClick() {
@@ -179,19 +226,16 @@ function App() {
     setIsTooltipPopupOpen(false);
   }
 
-  function handleLogOut() {
-    setLoggedIn(false);
-  }
 
   function handleSearch(keyword) {
-    setIsNewsOpen(false);     //Close results block between searches
+    setIsNewsOpen(false); //Close results block between searches
     setIsPreloaderOpen(true);
     newsApi
       .getArticles(keyword) //Get articles from news API
       .then((res) => {
         setCards(res.articles);
         if (res.articles.length !== 0) {
-          localStorage.setItem("cards", JSON.stringify(cards)); //save cards in local storage for next mounting
+          localStorage.setItem("cards", JSON.stringify(res.articles)); //save cards in local storage for next mounting
         } else {
           localStorage.removeItem("cards"); //If no articles found- clear local storage
         }
@@ -201,7 +245,7 @@ function App() {
       .catch((err) => {
         setIsPreloaderOpen(false);
         setIsErrorMessageOpen(true); //Show error message block
-        localStorage.removeItem("cards"); 
+        localStorage.removeItem("cards");
         console.log(err);
       });
   }
@@ -214,8 +258,9 @@ function App() {
       setCardIndex(cardIndex + 3);
     }
   }
+
   return (
-    <UserContext.Provider value={userName}>
+    <CurrentUserContext.Provider value={currentUser}>
       <LoggedInContext.Provider value={loggedIn}>
         <div className="content">
           <Header
@@ -249,6 +294,7 @@ function App() {
             isOpen={isSignInPopupOpen}
             onClose={closeAllPopups}
             onSignUpClick={handleSignUpClick}
+            onSubmit={handleLogin}
           />
           <SignupPopup
             isOpen={isSignUpPopupOpen}
@@ -264,7 +310,7 @@ function App() {
           />
         </div>
       </LoggedInContext.Provider>
-    </UserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

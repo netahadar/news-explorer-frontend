@@ -14,7 +14,7 @@ export default function NewsCardList({ cards, savedCards, index }) {
             return (
               <NewsCard
                 card={card}
-                key={card.title}
+                key={cards.indexOf(card)}
               />
             );
           })
@@ -22,7 +22,7 @@ export default function NewsCardList({ cards, savedCards, index }) {
           return (
             <NewsCard
               card={card}
-              key={card.title}
+              key={savedCards.indexOf(card)}
             />
           );
         })

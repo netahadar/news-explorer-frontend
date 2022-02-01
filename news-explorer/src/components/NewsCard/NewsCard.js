@@ -1,9 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { LoggedInContext } from "../../context/LoggdInContext";
-import { SAVEBUTTONCLASS,
-  DELETEBUTTONCLASS,
-  TOOLTIPSAVEDCLASS } from '../../constants';
+import { SAVE_BUTTON_CLASS,
+  DELETE_BUTTON_CLASS,
+  TOOLTIP_SAVED_CLASS } from '../../utils/constants';
 import "./NewsCard.css";
 
 export default function NewsCard({ card, keyword = "nature" }) {
@@ -28,7 +28,7 @@ export default function NewsCard({ card, keyword = "nature" }) {
     <li className="news__item">
       <button
         className={
-          location.pathname === "/" ? SAVEBUTTONCLASS : DELETEBUTTONCLASS
+          location.pathname === "/" ? SAVE_BUTTON_CLASS : DELETE_BUTTON_CLASS
         }
         type="button"
         aria-label="card button"
@@ -37,7 +37,7 @@ export default function NewsCard({ card, keyword = "nature" }) {
         className={
           !loggedIn
             ? "news__tooltip"
-            : location.pathname === "/saved-news" ?TOOLTIPSAVEDCLASS :undefined
+            : location.pathname === "/saved-news" ?TOOLTIP_SAVED_CLASS :undefined
         }
       >
         {!loggedIn ? (
