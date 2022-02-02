@@ -1,15 +1,17 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { LoggedInContext } from "../../context/LoggdInContext";
 import {
   SAVE_BUTTON_CLASS,
   DELETE_BUTTON_CLASS,
   TOOLTIP_SAVED_CLASS,
+  ACTIVE_SAVE_BUTTON_CLASS,
 } from "../../utils/constants";
 import "./NewsCard.css";
 
-export default function NewsCard({ card, keyword = "nature" }) {
-  const { description, publishedAt, source, title, urlToImage } = card;
+export default function NewsCard({ card, onSave,  savedCards = []}) {
+  const { description, publishedAt, source, title, urlToImage, keyword="nature" } = card;
 
   const location = useLocation();
 
@@ -22,19 +24,28 @@ export default function NewsCard({ card, keyword = "nature" }) {
     return monthName;
   }
 
-  const dateList = publishedAt.replace(/T[0-9]+:[0-9]+:[0-9]+Z/, "").split("-");
-  const month = getMonthName(dateList[1]);
-  const date = `${month} ${dateList[2]}, ${dateList[0]}`;
+  const dateList = publishedAt.replace(/T[0-9]+:[0-9]+:[0-9]+Z/, "").split("-"); //Remove time stamp from date
+  const month = getMonthName(dateList[1]); //Convert month from number to name
+  const date = `${month} ${dateList[2]}, ${dateList[0]}`;   //Display date according to design
+
+  const isSaved = savedCards.includes(card);
+
+  function handleCardSave(e) {
+    e.target.classList.add(ACTIVE_SAVE_BUTTON_CLASS);
+    onSave(card);
+  }
 
   return (
     <li className="news__item">
       <button
-        className={
-          location.pathname === "/" ? SAVE_BUTTON_CLASS : DELETE_BUTTON_CLASS
-        }
+        className={`
+          ${location.pathname === "/" ? SAVE_BUTTON_CLASS : DELETE_BUTTON_CLASS}
+          ${location.pathname === "/" && isSaved ? ACTIVE_SAVE_BUTTON_CLASS :undefined}
+        `}
         type="button"
         aria-label="card button"
         disabled={loggedIn ? false : true}
+        onClick={handleCardSave}
       ></button>
       <div
         className={

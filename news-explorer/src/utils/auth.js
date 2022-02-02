@@ -35,14 +35,4 @@ export function authorize({ email, password }) {
         throw new Error("the user with the specified email not found");
       }
     })
-}
-
-export function getContent(token) {
-    return mainApi.fetchCall(`${MAIN_API_BASE_URL}/users/me`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        }
-      })
-  } 
+} 

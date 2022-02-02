@@ -35,6 +35,7 @@ function App() {
   //Cards states
   const [cards, setCards] = React.useState([]);
   const [savedCards, setSavedCards] = React.useState([]);
+  const [cardKeyword, setCardKeyword] = React.useState("");
 
   //Sections appearance states
   const [isNewsOpen, setIsNewsOpen] = React.useState(false);
@@ -88,6 +89,14 @@ function App() {
       setIsNewsOpen(true);
     }
   }, []);
+
+  //retrive keyword to allow user keep saving cards after refresh
+  React.useEffect(() => {
+    if (localStorage.getItem("keyword")) {
+      setCardKeyword(localStorage.getItem("keyword"));
+    }
+  }, []);
+
   // Update api headers
   React.useEffect(() => {
     mainApi._headers = {
@@ -108,6 +117,31 @@ function App() {
           setLoggedIn(true); //keep the user logged in
         }
       });
+    }
+  }, [token]);
+
+  //Get saved cards from server
+  React.useEffect(() => {
+    if (token) {
+      let apiCards = [];
+      mainApi
+        .getSavedCards()
+        .then((res) => {
+          apiCards = res;
+        })
+        .catch(console.log);
+      for (const obj of apiCards) {
+        console.log(obj)
+        const newCard = {
+          description: obj.text,
+          publishedAt: obj.date,
+          source: { name: obj.source },
+          title: obj.title,
+          urlToImage: obj.image,
+          keyword: obj.keyword,
+        };
+        setSavedCards([...savedCards, newCard])
+      }
     }
   }, [token]);
 
@@ -167,6 +201,7 @@ function App() {
   }
 
   function handleSearch(keyword) {
+    setCardKeyword(keyword); //Save keyword to state for use in handleSaveCard
     setIsNewsOpen(false); //Close results block between searches
     setIsPreloaderOpen(true);
     newsApi
@@ -198,6 +233,24 @@ function App() {
     }
   }
 
+  function handleSaveCardClick(card) {
+    mainApi
+      .saveCard(card, cardKeyword)
+      .then((res) => {
+        const savedCard = {
+          description: res.text,
+          publishedAt: res.date,
+          source: { name: res.source },
+          title: res.title,
+          urlToImage: res.image,
+          keyword: cardKeyword,
+        };
+        setSavedCards([...savedCards, savedCard]);
+      })
+      .catch(console.log);
+      console.log(savedCards);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <LoggedInContext.Provider value={loggedIn}>
@@ -225,6 +278,7 @@ function App() {
                 isShowMoreActive={isShowMoreActive}
                 cardIndex={cardIndex}
                 onShowMoreClick={handleShowMoreClick}
+                onSave={handleSaveCardClick}
               />
             </Route>
           </Switch>

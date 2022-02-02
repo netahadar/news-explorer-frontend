@@ -7,8 +7,10 @@ export default function SavedNews({ cards, savedCards }) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
-  // For tests:
-  const keywordsList = ["Nature", "Yellowstone", "word", "another word"]; 
+  let keywordsList = [];
+  for (const obj of savedCards) {
+    keywordsList.push(obj.keyword);
+  } 
     
   const keywords = keywordsList.slice(0, 2).join(", ");
   const num = keywordsList.length - 2;
@@ -18,14 +20,16 @@ export default function SavedNews({ cards, savedCards }) {
       <div className="saved-news__caption">
         <p className="saved-news__text">Saved articles</p>
         <h2 className="saved-news__title">
-          {currentUser.name}, you have 5 saved articles
+          {currentUser.name}, you have {savedCards.length} saved articles
         </h2>
         <p className="saved-news__keywords">
           By keywords:
           <span>&nbsp;</span>
+          { keywordsList.length > 0 &&
           <span className="saved-news__keywords-span">
              {keywords}, and {num} other
           </span>
+          }
         </p>
       </div>
       <div className="saved-news__container">

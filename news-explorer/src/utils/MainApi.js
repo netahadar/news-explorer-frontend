@@ -25,55 +25,35 @@ import { MAIN_API_BASE_URL } from "./constants";
       });
     }
   
-    //Update user avatar:
-    setUserAvatar(data) {
-      return this.fetchCall(`${this._baseUrl}/users/me/avatar`, {
-        method: "PATCH",
-        headers: this._headers,
-        body: JSON.stringify({
-          //New avatar link:
-          avatar: data.avatar,
-        })
-      });
-    }
 
-    //Get initial cards from server:
-    getInitialCards() {
-      return this.fetchCall(`${this._baseUrl}/cards`, {
+    //Get saved cards from server:
+    getSavedCards() {
+      return this.fetchCall(`${this._baseUrl}/articles`, {
         method:"GET",
         headers: this._headers,
       });
     }
   
-    //Send new profile data to server:
-    setUserInfo(obj) {
-      return this.fetchCall(`${this._baseUrl}/users/me`, {
-        method: "PATCH",
-        headers: this._headers,
-        body: JSON.stringify({
-          //New profile data:
-          name: obj.name,
-          about: obj.about,
-        }),
-      });
-    }
-  
-    //Add new card:
-    createNewCard(obj) {
-      return this.fetchCall(`${this._baseUrl}/cards`, {
+    //Save card:
+    saveCard(obj, cardKeyword) {
+      return this.fetchCall(`${this._baseUrl}/articles`, {
         method: "POST",
         headers: this._headers,
         body: JSON.stringify({
-          //New card data:
-          name: obj.name,
-          link: obj.link,
+            keyword: cardKeyword,
+            title: obj.title,
+            text: obj.description,
+            date: obj.publishedAt,
+            source: obj.source.name,
+            link: obj.url,
+            image: obj.urlToImage,
         }),
       });
     }
   
     //Delete card:
     deleteCard(cardId) {
-      return this.fetchCall(`${this._baseUrl}/cards/${cardId}`, {
+      return this.fetchCall(`${this._baseUrl}/articles/${cardId}`, {
         method: "DELETE",
         headers: this._headers,
       });

@@ -39,6 +39,10 @@
     background-image: url(../../images/saveButtonActive.svg);
  }
 
+ .news__card-button_active:hover {
+  background-image: url(../../images/saveButtonActive.svg);
+ }
+
 .news__card-button_type_delete {
   background-image: url(../../images/trashButton.svg);
 }

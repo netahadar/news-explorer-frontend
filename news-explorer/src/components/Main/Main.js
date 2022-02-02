@@ -17,6 +17,7 @@ export default function Main({
   isShowMoreActive,
   cardIndex,
   onShowMoreClick,
+  onSave
 }) {
   return (
     <>
@@ -48,6 +49,7 @@ export default function Main({
             isShowMoreActive={isShowMoreActive}
             cardIndex={cardIndex}
             onShowMoreClick={onShowMoreClick}
+            onSave={onSave}
           />
         </section>
       )}

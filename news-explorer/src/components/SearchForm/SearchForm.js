@@ -8,6 +8,7 @@ export default function SearchForm({ onSearch }) {
     // Disallow special characters to prevent XSS
     const filteredValue = e.target.value.replace(/[*|\"<>[\]{}`;&$]+/, " ");
     setKeyword(filteredValue);
+    localStorage.setItem('keyword', filteredValue) //Save keyword to local storage for retriving after refreshing the page
   }
 
   function handleSubmit(e) {
