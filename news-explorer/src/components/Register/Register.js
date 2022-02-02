@@ -1,9 +1,9 @@
 import React from "react";
-import "./SignupPopup.css";
+import "./Register.css";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 import PopupFormInputs from "../PopupFormInputs/PopupFormInputs";
 
-export default function SignupPopup({
+export default function Register({
   isOpen,
   onClose,
   onSubmit,

@@ -2,7 +2,7 @@ import React from "react";
 import PopupFormInputs from "../PopupFormInputs/PopupFormInputs";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 
-export default function SigninPopup({ isOpen, onClose, onSignUpClick, onSubmit }){
+export default function Login({ isOpen, onClose, onSignUpClick, onSubmit }){
 
   const [values, setValues] = React.useState({
     email: "",

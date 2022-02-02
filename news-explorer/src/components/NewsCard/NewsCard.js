@@ -1,9 +1,11 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { LoggedInContext } from "../../context/LoggdInContext";
-import { SAVE_BUTTON_CLASS,
+import {
+  SAVE_BUTTON_CLASS,
   DELETE_BUTTON_CLASS,
-  TOOLTIP_SAVED_CLASS } from '../../utils/constants';
+  TOOLTIP_SAVED_CLASS,
+} from "../../utils/constants";
 import "./NewsCard.css";
 
 export default function NewsCard({ card, keyword = "nature" }) {
@@ -13,14 +15,14 @@ export default function NewsCard({ card, keyword = "nature" }) {
 
   const loggedIn = React.useContext(LoggedInContext);
 
-  function getMonthName(month){
+  function getMonthName(month) {
     const d = new Date();
-    d.setMonth(month-1);
-    const monthName = d.toLocaleString("en-US", {month: "long"});
+    d.setMonth(month - 1);
+    const monthName = d.toLocaleString("en-US", { month: "long" });
     return monthName;
   }
 
-  const dateList = publishedAt.replace(/T[0-9]+:[0-9]+:[0-9]+Z/, "").split('-')
+  const dateList = publishedAt.replace(/T[0-9]+:[0-9]+:[0-9]+Z/, "").split("-");
   const month = getMonthName(dateList[1]);
   const date = `${month} ${dateList[2]}, ${dateList[0]}`;
 
@@ -32,12 +34,15 @@ export default function NewsCard({ card, keyword = "nature" }) {
         }
         type="button"
         aria-label="card button"
+        disabled={loggedIn ? false : true}
       ></button>
       <div
         className={
           !loggedIn
             ? "news__tooltip"
-            : location.pathname === "/saved-news" ?TOOLTIP_SAVED_CLASS :undefined
+            : location.pathname === "/saved-news"
+            ? TOOLTIP_SAVED_CLASS
+            : undefined
         }
       >
         {!loggedIn ? (

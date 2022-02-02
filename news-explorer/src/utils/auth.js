@@ -11,7 +11,6 @@ export function register({ email, password, name }) {
   })
   .then((data) => {
     if (data) {
-      console.log(data);
       return data;
             }
       else{
@@ -31,7 +30,6 @@ export function authorize({ email, password }) {
     .then((data) => {
       if (data) {
         localStorage.setItem('jwt', data.token)
-        console.log(data.token)
         return data.token;
       } else {
         throw new Error("the user with the specified email not found");
