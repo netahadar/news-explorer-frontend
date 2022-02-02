@@ -123,25 +123,12 @@ function App() {
   //Get saved cards from server
   React.useEffect(() => {
     if (token) {
-      let apiCards = [];
       mainApi
         .getSavedCards()
         .then((res) => {
-          apiCards = res;
+          setSavedCards(res);
         })
         .catch(console.log);
-      for (const obj of apiCards) {
-        console.log(obj)
-        const newCard = {
-          description: obj.text,
-          publishedAt: obj.date,
-          source: { name: obj.source },
-          title: obj.title,
-          urlToImage: obj.image,
-          keyword: obj.keyword,
-        };
-        setSavedCards([...savedCards, newCard])
-      }
     }
   }, [token]);
 
@@ -248,7 +235,6 @@ function App() {
         setSavedCards([...savedCards, savedCard]);
       })
       .catch(console.log);
-      console.log(savedCards);
   }
 
   return (

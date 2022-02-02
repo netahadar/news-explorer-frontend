@@ -8,6 +8,19 @@ export default function NewsCardList({ cards, savedCards, index, onSave }) {
 
   const location = useLocation();
 
+  let newSavedCards = [];
+  for (const obj of savedCards) { 
+      const newCard = {  //Rename the keys to match them to NewsCard component's rendering
+        description: obj.text,
+        publishedAt: obj.date,
+        source: { name: obj.source },
+        title: obj.title,
+        urlToImage: obj.image,
+        keyword: obj.keyword,
+      };
+      newSavedCards.push(newCard)
+    }
+  
   return(
         <ul className="news__list">
           {location.pathname === '/' ? cards.slice(0, index).map((card) => {
@@ -20,11 +33,11 @@ export default function NewsCardList({ cards, savedCards, index, onSave }) {
               />
             );
           })
-        : savedCards.map((card) => {
+        : newSavedCards.map((card) => {
           return (
             <NewsCard
               card={card}
-              key={savedCards.indexOf(card)}
+              key={newSavedCards.indexOf(card)}
               onSave={onSave}
             />
           );

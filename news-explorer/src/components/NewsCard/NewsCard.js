@@ -1,6 +1,5 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { LoggedInContext } from "../../context/LoggdInContext";
 import {
   SAVE_BUTTON_CLASS,
@@ -10,8 +9,15 @@ import {
 } from "../../utils/constants";
 import "./NewsCard.css";
 
-export default function NewsCard({ card, onSave,  savedCards = []}) {
-  const { description, publishedAt, source, title, urlToImage, keyword="nature" } = card;
+export default function NewsCard({ card, onSave, savedCards = [] }) {
+  const {
+    description,
+    publishedAt,
+    source,
+    title,
+    urlToImage,
+    keyword = "nature",
+  } = card;
 
   const location = useLocation();
 
@@ -26,9 +32,15 @@ export default function NewsCard({ card, onSave,  savedCards = []}) {
 
   const dateList = publishedAt.replace(/T[0-9]+:[0-9]+:[0-9]+Z/, "").split("-"); //Remove time stamp from date
   const month = getMonthName(dateList[1]); //Convert month from number to name
-  const date = `${month} ${dateList[2]}, ${dateList[0]}`;   //Display date according to design
+  const date = `${month} ${dateList[2]}, ${dateList[0]}`; //Display date according to design
 
-  const isSaved = savedCards.includes(card);
+  let isSaved;
+  for (let i = 0; i < savedCards.length; ++i) { //chack if card is saved to activate save button
+    if (savedCards[i].title === card.title) {
+      isSaved = true;
+      break;
+    }
+  }
 
   function handleCardSave(e) {
     e.target.classList.add(ACTIVE_SAVE_BUTTON_CLASS);
@@ -40,7 +52,11 @@ export default function NewsCard({ card, onSave,  savedCards = []}) {
       <button
         className={`
           ${location.pathname === "/" ? SAVE_BUTTON_CLASS : DELETE_BUTTON_CLASS}
-          ${location.pathname === "/" && isSaved ? ACTIVE_SAVE_BUTTON_CLASS :undefined}
+          ${
+            location.pathname === "/" && isSaved
+              ? ACTIVE_SAVE_BUTTON_CLASS
+              : undefined
+          }
         `}
         type="button"
         aria-label="card button"
