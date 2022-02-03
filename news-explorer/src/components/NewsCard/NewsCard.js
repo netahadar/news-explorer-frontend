@@ -9,20 +9,23 @@ import {
 } from "../../utils/constants";
 import "./NewsCard.css";
 
-export default function NewsCard({ card, onSave, savedCards = [] }) {
+export default function NewsCard({ card, onCardButtonClick, savedCards }) {
+
   const {
-    description,
-    publishedAt,
+    description=card.text,
+    publishedAt=card.date,
     source,
     title,
-    urlToImage,
-    keyword = "nature",
+    urlToImage=card.image,
+    keyword,
+    link=card.url,
   } = card;
 
   const location = useLocation();
 
   const loggedIn = React.useContext(LoggedInContext);
 
+  //Convert date's month from number to name
   function getMonthName(month) {
     const d = new Date();
     d.setMonth(month - 1);
@@ -31,20 +34,31 @@ export default function NewsCard({ card, onSave, savedCards = [] }) {
   }
 
   const dateList = publishedAt.replace(/T[0-9]+:[0-9]+:[0-9]+Z/, "").split("-"); //Remove time stamp from date
-  const month = getMonthName(dateList[1]); //Convert month from number to name
+  const month = getMonthName(dateList[1]); 
   const date = `${month} ${dateList[2]}, ${dateList[0]}`; //Display date according to design
 
-  let isSaved;
-  for (let i = 0; i < savedCards.length; ++i) { //chack if card is saved to activate save button
-    if (savedCards[i].title === card.title) {
-      isSaved = true;
-      break;
-    }
+  function checkForSavedCards() {
+    // eslint-disable-next-line array-callback-return
+    return savedCards.find((savedCard) => {
+      // Chack if card is on savedCards list
+      if (savedCard.title === card.title) {
+        return true;
+      }
+    });
   }
 
-  function handleCardSave(e) {
-    e.target.classList.add(ACTIVE_SAVE_BUTTON_CLASS);
-    onSave(card);
+  const isSaved = checkForSavedCards(); //Check if card is saved on render
+
+  function handleCardButtonClick(e) {
+    const isSavedCard = checkForSavedCards();
+
+    if (isSavedCard) {
+      card = isSavedCard; //Set card from matching result on savedCards to enable delete on search result block
+    }
+    
+    e.target.classList.toggle(ACTIVE_SAVE_BUTTON_CLASS);
+
+    onCardButtonClick(card, isSaved);
   }
 
   return (
@@ -61,7 +75,7 @@ export default function NewsCard({ card, onSave, savedCards = [] }) {
         type="button"
         aria-label="card button"
         disabled={loggedIn ? false : true}
-        onClick={handleCardSave}
+        onClick={handleCardButtonClick}
       ></button>
       <div
         className={
@@ -80,6 +94,8 @@ export default function NewsCard({ card, onSave, savedCards = [] }) {
           )
         )}
       </div>
+      {/* eslint-disable-next-line react/jsx-no-target-blank */}
+      <a className="news__article-link" href={link} target="_blank">
       {location.pathname === "/saved-news" && (
         <div className="news__keyword-container">
           <p className="news__keyword">{keyword}</p>
@@ -93,8 +109,9 @@ export default function NewsCard({ card, onSave, savedCards = [] }) {
         <p className="news__item-date">{date}</p>
         <h3 className="news__item-title">{title}</h3>
         <p className="news__item-text">{description}</p>
-        <p className="news__item-source">{source.name.toUpperCase()}</p>
+        <p className="news__item-source">{source.name ? source.name.toUpperCase() :source.toUpperCase()}</p>
       </div>
+      </a>
     </li>
   );
 }

@@ -35,52 +35,36 @@ import { MAIN_API_BASE_URL } from "./constants";
     }
   
     //Save card:
-    saveCard(obj, cardKeyword) {
+    _saveCard(card, cardKeyword) {
       return this.fetchCall(`${this._baseUrl}/articles`, {
         method: "POST",
         headers: this._headers,
         body: JSON.stringify({
             keyword: cardKeyword,
-            title: obj.title,
-            text: obj.description,
-            date: obj.publishedAt,
-            source: obj.source.name,
-            link: obj.url,
-            image: obj.urlToImage,
+            title: card.title,
+            text: card.description,
+            date: card.publishedAt,
+            source: card.source.name,
+            link: card.url,
+            image: card.urlToImage,
         }),
       });
     }
   
     //Delete card:
-    deleteCard(cardId) {
+    _deleteCard(cardId) {
       return this.fetchCall(`${this._baseUrl}/articles/${cardId}`, {
         method: "DELETE",
         headers: this._headers,
       });
     }
-  
-    //Add like to card:
-    _addLike(cardId) {
-      return this.fetchCall(`${this._baseUrl}/cards/${cardId}/likes`, {
-        method: "PUT",
-        headers: this._headers,
-      });
-    }
-  
-    //Remove like from card:
-    _dislike(cardId) {
-      return this.fetchCall(`${this._baseUrl}/cards/${cardId}/likes`, {
-        method: "DELETE",
-        headers: this._headers,
-      });
-    }
 
-    //toggle likes:
-    changeLikeCardStatus(cardID, isLiked){
-      if (isLiked){
-        return this._dislike(cardID);
+    //toggle saved cards:
+    changeCardSaveStatus(card, isSaved, cardKeyword){
+      if (isSaved){
+        return this._deleteCard(card._id);
       } else {
-        return this._addLike(cardID);
+        return this._saveCard(card, cardKeyword);
       }
     }
   }

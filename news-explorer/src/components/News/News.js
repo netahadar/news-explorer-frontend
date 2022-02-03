@@ -8,7 +8,7 @@ export default function News({
   isShowMoreActive,
   cardIndex,
   onShowMoreClick,
-  onSave,
+  onCardButtonClick,
 }) {
   return (
     <>
@@ -17,7 +17,7 @@ export default function News({
         cards={cards}
         savedCards={savedCards}
         index={cardIndex}
-        onSave={onSave}
+        onCardButtonClick={onCardButtonClick}
       />
       {isShowMoreActive && (
         <button

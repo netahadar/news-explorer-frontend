@@ -178,6 +178,10 @@
   margin: 0;
 }
 
+.news__article-link {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 1360px) {
   .news__item-description{
     width: 250px;

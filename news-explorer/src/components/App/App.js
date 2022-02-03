@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
@@ -220,22 +220,32 @@ function App() {
     }
   }
 
-  function handleSaveCardClick(card) {
+  function handleCardButtonClick(card, isSaved) {
     mainApi
-      .saveCard(card, cardKeyword)
+      .changeCardSaveStatus(card, isSaved, cardKeyword)
       .then((res) => {
-        const savedCard = {
-          description: res.text,
-          publishedAt: res.date,
-          source: { name: res.source },
-          title: res.title,
-          urlToImage: res.image,
-          keyword: cardKeyword,
-        };
-        setSavedCards([...savedCards, savedCard]);
+        if (!res.message) {
+          const savedCard = {
+            _id: res._id,
+            description: res.text,
+            publishedAt: res.date,
+            source: { name: res.source },
+            title: res.title,
+            urlToImage: res.image,
+            keyword: res.keyword,
+            link: res.link,
+          };
+          setSavedCards([...savedCards, savedCard]);
+        } else {
+          setSavedCards((cardsList) =>
+            cardsList.filter(item => item._id !== card._id)
+          );
+        }
       })
       .catch(console.log);
   }
+
+  React.useEffect(()=>{console.log(savedCards);}, [savedCards])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -251,7 +261,11 @@ function App() {
           />
           <Switch>
             <ProtectedRoute path="/saved-news" loggedIn={loggedIn}>
-              <SavedNews cards={cards} savedCards={savedCards} />
+              <SavedNews
+                cards={cards}
+                savedCards={savedCards}
+                onCardButtonClick={handleCardButtonClick}
+              />
             </ProtectedRoute>
             <Route path="/">
               <Main
@@ -264,7 +278,7 @@ function App() {
                 isShowMoreActive={isShowMoreActive}
                 cardIndex={cardIndex}
                 onShowMoreClick={handleShowMoreClick}
-                onSave={handleSaveCardClick}
+                onCardButtonClick={handleCardButtonClick}
               />
             </Route>
           </Switch>

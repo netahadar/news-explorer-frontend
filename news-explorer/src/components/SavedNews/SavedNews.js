@@ -3,7 +3,7 @@ import "./SavedNews.css";
 import NewsCardList from "../NewCardList/NewsCardList";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
-export default function SavedNews({ cards, savedCards }) {
+export default function SavedNews({ cards, savedCards, onCardButtonClick }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   let keywordsList = [];
@@ -13,8 +13,9 @@ export default function SavedNews({ cards, savedCards }) {
     }
   }
 
-  const keywords = keywordsList.slice(0, 2).join(", ");
-  const num = keywordsList.length - 2;
+  const firstKeywords = keywordsList.slice(0, 2);
+  const keywords = firstKeywords.join(", ");
+  const num = keywordsList.length - firstKeywords.length;
 
   return (
     <section className="saved-news">
@@ -28,13 +29,13 @@ export default function SavedNews({ cards, savedCards }) {
           <span>&nbsp;</span>
           {keywordsList.length > 0 && (
             <span className="saved-news__keywords-span">
-              {keywords}, and {num} other
+              {keywords}{num > 0 ?`, and ${num} other` : ''}
             </span>
           )}
         </p>
       </div>
       <div className="saved-news__container">
-        <NewsCardList cards={cards} savedCards={savedCards} />
+        <NewsCardList cards={cards} savedCards={savedCards} onCardButtonClick={onCardButtonClick}/>
       </div>
     </section>
   );
