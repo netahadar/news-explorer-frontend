@@ -1,5 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  FORM_SUBMIT_BUTTON_CLASS,
+  INACTIVE_FORM_SUBMIT_BUTTON_CLASS,
+} from "../../utils/constants";
 import "./PopupWithForm.css";
 
 export default function PopupWithForm({
@@ -12,6 +16,9 @@ export default function PopupWithForm({
   onLinkClick,
   onSubmit,
   children,
+  isValid = false,
+  isError,
+  resError
 }) {
   return (
     <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
@@ -24,7 +31,22 @@ export default function PopupWithForm({
         <form className="popup__form" name={name} onSubmit={onSubmit}>
           <h2 className="popup__form-title">{title}</h2>
           {children}
-          <button className="popup__form-submit-button" type="submit">
+          <span
+            className={
+              isError ? "popup__form-submit-error" : undefined
+            }
+          >
+            {resError}
+          </span>
+          <button
+            className={
+              isValid
+                ? FORM_SUBMIT_BUTTON_CLASS
+                : INACTIVE_FORM_SUBMIT_BUTTON_CLASS
+            }
+            type="submit"
+            disabled={isValid ? false : true}
+          >
             {buttonTitle}
           </button>
           <p className="popup__form-text">

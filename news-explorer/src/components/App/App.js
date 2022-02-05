@@ -25,6 +25,10 @@ function App() {
   const [token, setToken] = React.useState(localStorage.getItem("jwt"));
   const [cardIndex, setCardIndex] = React.useState(3);
   const [isShowMoreActive, setIsShowMoreActive] = React.useState(true);
+  
+  //Login / register errors states
+  const [resError, setResError] = React.useState('');
+  const [isError, setIsError] = React.useState(false)
 
   //Popups open/close states
   const [isTootipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
@@ -157,7 +161,10 @@ function App() {
         setIsSignUpPopupOpen(false);
         setIsTooltipPopupOpen(true);
       })
-      .catch(console.log);
+      .catch((err)=>{
+        setResError(err.message);
+        setIsError(true);
+      });
   }
 
   function handleLogin(values) {
@@ -168,7 +175,10 @@ function App() {
         setLoggedIn(true);
         closeAllPopups();
       })
-      .catch(console.log);
+      .catch((err)=>{
+        setResError(err.message)
+        setIsError(true);
+      });
   }
 
   function handleLogOut() {
@@ -185,6 +195,7 @@ function App() {
     setIsSignInPopupOpen(false);
     setIsSignUpPopupOpen(false);
     setIsTooltipPopupOpen(false);
+    setIsError(false); //Hide error message when mooving between Login and Register popups
   }
 
   function handleSearch(keyword) {
@@ -245,8 +256,6 @@ function App() {
       .catch(console.log);
   }
 
-  React.useEffect(()=>{console.log(savedCards);}, [savedCards])
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <LoggedInContext.Provider value={loggedIn}>
@@ -288,12 +297,16 @@ function App() {
             onClose={closeAllPopups}
             onSignUpClick={handleSignUpClick}
             onSubmit={handleLogin}
+            isError={isError}
+            resError={resError}
           />
           <Register
             isOpen={isSignUpPopupOpen}
             onClose={closeAllPopups}
             onSubmit={handleRegister}
             onSignInClick={handleSignInClick}
+            isError={isError}
+            resError={resError}
           />
           <InfoTooltip
             isOpen={isTootipPopupOpen}

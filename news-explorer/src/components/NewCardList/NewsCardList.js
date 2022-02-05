@@ -9,7 +9,7 @@ export default function NewsCardList({
   index,
   onCardButtonClick,
 }) {
-  console.log(cards.slice[0,1])
+  
   const location = useLocation();
 
   return (

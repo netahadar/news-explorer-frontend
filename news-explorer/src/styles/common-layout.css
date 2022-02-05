@@ -80,7 +80,11 @@
     font-weight: 400;
     text-align: start;
     padding: 0;
-    margin: 3px 0 13px;
+    margin: -27px 0 27px;
+  }
+
+  .popup__form-input-error_active:last-of-type {
+    margin: -36px 0 36px;
   }
 
   @media screen and (max-width: 745px) {

@@ -51,6 +51,17 @@
   background-color: #ffffff;
 }
 
+.popup__form-submit-error{
+  color: #ff0000;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    text-align: start;
+    padding: 0;
+    margin: 0 auto 8px;
+}
+
 .popup__form-text {
     font-family: "Inter", sans-serif;
     font-size: 14px;
