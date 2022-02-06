@@ -24,7 +24,7 @@ function App() {
     _id: "",
   });
   const [token, setToken] = React.useState(localStorage.getItem("jwt"));
-  const [cardIndex, setCardIndex] = React.useState(3);
+  const [cardIndex, setCardIndex] = React.useState(3); // index for use in slice method in search results block
   const [isShowMoreActive, setIsShowMoreActive] = React.useState(true);
 
   //Login / register errors states
@@ -49,6 +49,7 @@ function App() {
 
   const history = useHistory();
 
+  //Event listener for screen resize
   React.useEffect(() => {
     window.addEventListener("resize", handleScreenResize);
     return () => {
@@ -97,14 +98,14 @@ function App() {
     }
   }, []);
 
-  //retrive keyword to allow user keep saving cards after refresh
+  //Retrive keyword to allow user keep saving cards after refresh
   React.useEffect(() => {
     if (localStorage.getItem("keyword")) {
       setCardKeyword(localStorage.getItem("keyword"));
     }
   }, []);
 
-  // Update api headers
+  // Update mainApi headers with new token
   React.useEffect(() => {
     mainApi._headers = {
       authorization: `Bearer ${token}`,
@@ -157,10 +158,11 @@ function App() {
     setIsSignUpPopupOpen(true);
   }
 
-  function handleRegister(values) {
+  function handleRegister(values, resetForm) {
     auth
       .register(values)
       .then(() => {
+        resetForm();
         setIsSignUpPopupOpen(false);
         setIsTooltipPopupOpen(true);
       })
@@ -170,12 +172,13 @@ function App() {
       });
   }
 
-  function handleLogin(values) {
+  function handleLogin(values, resetForm) {
     auth
       .authorize(values)
       .then((res) => {
         setToken(res);
         setLoggedIn(true);
+        resetForm();
         history.push("/");
         closeAllPopups();
       })
@@ -203,7 +206,7 @@ function App() {
   }
 
   function handleSearch(keyword) {
-    setCardKeyword(keyword); //Save keyword to state for use in handleSaveCard
+    setCardKeyword(keyword); //Save keyword for use in handleSaveCard
     setIsNewsOpen(false); //Close results block between searches
     setIsPreloaderOpen(true);
     newsApi
@@ -259,7 +262,7 @@ function App() {
             }
           })
           .catch(console.log)
-      : setIsSignInPopupOpen(true); //else - open login popup
+      : setIsSignInPopupOpen(true); //Else - open login popup
   }
 
   return (

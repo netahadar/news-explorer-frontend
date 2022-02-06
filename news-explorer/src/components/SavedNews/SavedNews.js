@@ -1,6 +1,6 @@
 import React from "react";
 import "./SavedNews.css";
-import NewsCardList from "../NewCardList/NewsCardList";
+import NewsCardList from "../NewsCardList/NewsCardList";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 export default function SavedNews({ cards, savedCards, onCardButtonClick }) {
@@ -11,7 +11,7 @@ export default function SavedNews({ cards, savedCards, onCardButtonClick }) {
   for (const obj of savedCards){
     initialKeywordsList.push(obj.keyword);
   }
-  // Count keywords occurrence
+  // Count keywords occurrence and add to object
   const keywordCount = initialKeywordsList.reduce(function(previous, current) {
     previous[current] = (previous[current] || 0) + 1;
     return previous;
@@ -21,7 +21,7 @@ export default function SavedNews({ cards, savedCards, onCardButtonClick }) {
     return keywordCount[b] - keywordCount[a];
   });;
   
-  const firstKeywords =
+  const firstKeywords = //Choose keywords to display
     keywordsList.length <= 3
       ? keywordsList.slice(0, 3)
       : keywordsList.slice(0, 2);

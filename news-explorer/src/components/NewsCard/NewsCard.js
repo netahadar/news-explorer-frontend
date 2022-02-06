@@ -33,7 +33,7 @@ export default function NewsCard({ card, onCardButtonClick, savedCards }) {
     return monthName;
   }
 
-  const dateList = publishedAt.replace(/T[0-9]+:[0-9]+:[0-9]+Z/, "").split("-"); //Remove time stamp from date
+  const dateList = publishedAt.replace(/T[0-9]+:[0-9]+:[0-9]+Z/, "").split("-"); //Keep date only and convert to list
   const month = getMonthName(dateList[1]); 
   const date = `${month} ${dateList[2]}, ${dateList[0]}`; //Display date according to design
 

@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 
 // hook for form control and form validation
 export function useForm() {
-  const [values, setValues] = React.useState({});
+  const [values, setValues] = React.useState({email: "", password: "", name: ""});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 

@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function PopupFormInputs({ values, errors, handleChange }) {
-
   return (
     <>
       <p className="popup__form-input-title">Email</p>
@@ -9,22 +8,28 @@ export default function PopupFormInputs({ values, errors, handleChange }) {
         className="popup__form-input"
         type="email"
         name="email"
+        value={values.email}
         onChange={handleChange}
         placeholder="Enter email"
         required
       />
-      <span className={errors.email ? 'popup__form-input-error_active' : undefined}>{errors.email}</span>
+      {errors.email && (
+        <span className="popup__form-input-error">{errors.email}</span>
+      )}
       <p className="popup__form-input-title">Password</p>
       <input
         className="popup__form-input"
         type="password"
         name="password"
+        value={values.password}
         onChange={handleChange}
         placeholder="Enter password"
         minLength="8"
         required
       />
-      <span className={errors.password ? 'popup__form-input-error_active' : undefined}>{errors.password}</span>
+      {errors.password && (
+        <span className="popup__form-input-error">{errors.password}</span>
+      )}
     </>
   );
 }

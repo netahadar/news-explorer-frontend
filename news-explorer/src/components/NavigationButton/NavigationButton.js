@@ -1,10 +1,12 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import logOutPath from "../../images/logout.svg";
 import darkLogOutPath from "../../images/darkLogout.svg";
-import "./NavigationButton.css";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { LoggedInContext } from "../../context/LoggdInContext";
-import { useLocation } from "react-router-dom";
+import { LOGGED_IN_BUTTON_CLASS, DARK_BUTTON_CLASS } from "../../utils/constants";
+import "./NavigationButton.css";
+
 
 export default function NavigationButton({ onSignInClick, onLogOut }) {
 
@@ -13,14 +15,11 @@ export default function NavigationButton({ onSignInClick, onLogOut }) {
   const currentUser = React.useContext(CurrentUserContext);
   const loggedIn = React.useContext(LoggedInContext);
 
-  const loggedInButtonClass = "header__navigate-button_loggedin";
-  const darkButtonClass = "header__navigate-button_theme_dark";
-
   return (
     <button
       className={`header__navigate-button 
-      ${loggedIn && loggedInButtonClass} 
-      ${location.pathname === "/saved-news" && darkButtonClass}`
+      ${loggedIn && LOGGED_IN_BUTTON_CLASS} 
+      ${location.pathname === "/saved-news" && DARK_BUTTON_CLASS}`
     }
     onClick={!loggedIn  ?onSignInClick :onLogOut}
     >

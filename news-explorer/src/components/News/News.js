@@ -1,6 +1,6 @@
 import React from "react";
 import "./News.css";
-import NewsCardList from "../NewCardList/NewsCardList";
+import NewsCardList from "../NewsCardList/NewsCardList";
 
 export default function News({
   cards,

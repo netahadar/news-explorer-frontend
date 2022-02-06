@@ -5,9 +5,8 @@ export default function SearchForm({ onSearch }) {
   const [keyword, setKeyword] = React.useState("");
 
   function handleKeywordChange(e) {
-    // Disallow special characters to prevent XSS
     // eslint-disable-next-line no-useless-escape
-    const filteredValue = e.target.value.replace(/[*|\"<>[\]{}`;&$]+/, " ");
+    const filteredValue = e.target.value.replace(/[*|\"<>[\]{}`;&$]+/, " "); // Disallow special characters to prevent XSS
     setKeyword(filteredValue);
     localStorage.setItem('keyword', filteredValue) //Save keyword to local storage for retriving after refreshing the page
   }

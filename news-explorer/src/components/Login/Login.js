@@ -11,12 +11,11 @@ export default function Login({
   isError,
   resError,
 }) {
-  const { values, handleChange, errors, isValid, resetForm } = useForm();
+  const { values, handleChange, errors, isValid,resetForm } = useForm();
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the browser from navigating to the form address
-    onSubmit(values); // Pass the values to the external handler
-    resetForm();
+    onSubmit(values, resetForm); // Pass the values to the external handler
   }
 
   return (
