@@ -208,6 +208,7 @@ function App() {
   function handleSearch(keyword) {
     setCardKeyword(keyword); //Save keyword for use in handleSaveCard
     setIsNewsOpen(false); //Close results block between searches
+    setIsErrorMessageOpen(false) // Hide server error message on search
     setIsPreloaderOpen(true);
     newsApi
       .getArticles(keyword) //Get articles from news API
