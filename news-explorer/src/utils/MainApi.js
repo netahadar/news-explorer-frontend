@@ -59,7 +59,7 @@ import { MAIN_API_BASE_URL } from "./constants";
       });
     }
 
-    //toggle saved cards:
+    //toggle save cards:
     changeCardSaveStatus(card, isSaved, cardKeyword){
       if (isSaved){
         return this._deleteCard(card._id);

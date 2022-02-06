@@ -38,8 +38,8 @@
   const year = last.getFullYear();
   const from = year + "/" + month + "/" + day;
   const to = date;
-//To-Do: change base url to https://nomoreparties.co/news/ before publishing site
-  const newsApi = new NewsApi("https://newsapi.org/v2", {
+  
+  const newsApi = new NewsApi("https://nomoreparties.co/news/v2", {
     "X-Api-Key": "86396d5028184694985b36f420ef7036",
   }, from, to);
   
