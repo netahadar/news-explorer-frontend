@@ -31,13 +31,13 @@ export default function PopupWithForm({
         <form className="popup__form" name={name} onSubmit={onSubmit}>
           <h2 className="popup__form-title">{title}</h2>
           {children}
+          { isError &&
           <span
-            className={
-              isError ? "popup__form-submit-error" : undefined
-            }
+            className="popup__form-submit-error"
           >
             {resError}
           </span>
+          }
           <button
             className={
               isValid

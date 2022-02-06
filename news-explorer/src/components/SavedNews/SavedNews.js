@@ -6,14 +6,25 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 export default function SavedNews({ cards, savedCards, onCardButtonClick }) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  let keywordsList = [];
-  for (const obj of savedCards) {
-    if (!keywordsList.includes(obj.keyword)) {
-      keywordsList.push(obj.keyword);
-    }
+  //Create a list of all articles keywords
+  let initialKeywordsList = [];
+  for (const obj of savedCards){
+    initialKeywordsList.push(obj.keyword);
   }
-
-  const firstKeywords = keywordsList.slice(0, 2);
+  // Count keywords occurrence
+  const keywordCount = initialKeywordsList.reduce(function(previous, current) {
+    previous[current] = (previous[current] || 0) + 1;
+    return previous;
+  }, {});;
+  //Sort keywords list by num of occurence
+  const keywordsList = Object.keys(keywordCount).sort(function(a, b) {
+    return keywordCount[b] - keywordCount[a];
+  });;
+  
+  const firstKeywords =
+    keywordsList.length <= 3
+      ? keywordsList.slice(0, 3)
+      : keywordsList.slice(0, 2);
   const keywords = firstKeywords.join(", ");
   const num = keywordsList.length - firstKeywords.length;
 
@@ -29,13 +40,18 @@ export default function SavedNews({ cards, savedCards, onCardButtonClick }) {
           <span>&nbsp;</span>
           {keywordsList.length > 0 && (
             <span className="saved-news__keywords-span">
-              {keywords}{num > 0 ?`, and ${num} other` : ''}
+              {keywords}
+              {num > 0 ? `, and ${num} other` : ""}
             </span>
           )}
         </p>
       </div>
       <div className="saved-news__container">
-        <NewsCardList cards={cards} savedCards={savedCards} onCardButtonClick={onCardButtonClick}/>
+        <NewsCardList
+          cards={cards}
+          savedCards={savedCards}
+          onCardButtonClick={onCardButtonClick}
+        />
       </div>
     </section>
   );
