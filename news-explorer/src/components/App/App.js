@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
+import { useHistory } from "react-router";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -45,6 +46,8 @@ function App() {
   const [isNewsOpen, setIsNewsOpen] = React.useState(false);
   const [isPreloaderOpen, setIsPreloaderOpen] = React.useState(false);
   const [isErrorMessageOpen, setIsErrorMessageOpen] = React.useState(false);
+
+  const history = useHistory();
 
   React.useEffect(() => {
     window.addEventListener("resize", handleScreenResize);
@@ -173,6 +176,7 @@ function App() {
       .then((res) => {
         setToken(res);
         setLoggedIn(true);
+        history.push("/");
         closeAllPopups();
       })
       .catch((err) => {
