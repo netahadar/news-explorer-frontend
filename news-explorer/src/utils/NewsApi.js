@@ -23,7 +23,7 @@
     // //Get articles from server:
     getArticles(keyword) {
       return this.fetchCall(`
-      ${this._baseUrl}/everything?q=${keyword}&from=${this._from}&to=${this._to}&pageSize=100`, 
+      ${this._baseUrl}?q=${keyword}&from=${this._from}&to=${this._to}&pageSize=100&apiKey=86396d5028184694985b36f420ef7036`, 
       {
         headers: this._headers,
         });
@@ -38,9 +38,8 @@
   const year = last.getFullYear();
   const from = year + "/" + month + "/" + day;
   const to = date;
-  
-  const newsApi = new NewsApi("https://nomoreparties.co/news/v2", {
-    "X-Api-Key": "86396d5028184694985b36f420ef7036",
+
+  const newsApi = new NewsApi("https://nomoreparties.co/news/v2/everything", {
   }, from, to);
   
   export default newsApi;
