@@ -74,7 +74,6 @@ export default function NewsCard({ card, onCardButtonClick, savedCards }) {
         `}
         type="button"
         aria-label="card button"
-        disabled={loggedIn ? false : true}
         onClick={handleCardButtonClick}
       ></button>
       <div

@@ -25,10 +25,10 @@ function App() {
   const [token, setToken] = React.useState(localStorage.getItem("jwt"));
   const [cardIndex, setCardIndex] = React.useState(3);
   const [isShowMoreActive, setIsShowMoreActive] = React.useState(true);
-  
+
   //Login / register errors states
-  const [resError, setResError] = React.useState('');
-  const [isError, setIsError] = React.useState(false)
+  const [resError, setResError] = React.useState("");
+  const [isError, setIsError] = React.useState(false);
 
   //Popups open/close states
   const [isTootipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
@@ -161,7 +161,7 @@ function App() {
         setIsSignUpPopupOpen(false);
         setIsTooltipPopupOpen(true);
       })
-      .catch((err)=>{
+      .catch((err) => {
         setResError(err.message);
         setIsError(true);
       });
@@ -175,8 +175,8 @@ function App() {
         setLoggedIn(true);
         closeAllPopups();
       })
-      .catch((err)=>{
-        setResError(err.message)
+      .catch((err) => {
+        setResError(err.message);
         setIsError(true);
       });
   }
@@ -232,28 +232,30 @@ function App() {
   }
 
   function handleCardButtonClick(card, isSaved) {
-    mainApi
-      .changeCardSaveStatus(card, isSaved, cardKeyword)
-      .then((res) => {
-        if (!res.message) {
-          const savedCard = {
-            _id: res._id,
-            description: res.text,
-            publishedAt: res.date,
-            source: { name: res.source },
-            title: res.title,
-            urlToImage: res.image,
-            keyword: res.keyword,
-            link: res.link,
-          };
-          setSavedCards([...savedCards, savedCard]);
-        } else {
-          setSavedCards((cardsList) =>
-            cardsList.filter(item => item._id !== card._id)
-          );
-        }
-      })
-      .catch(console.log);
+    loggedIn
+      ? mainApi //If user is logged in- send api request
+          .changeCardSaveStatus(card, isSaved, cardKeyword)
+          .then((res) => {
+            if (!res.message) {
+              const savedCard = {
+                _id: res._id,
+                description: res.text,
+                publishedAt: res.date,
+                source: { name: res.source },
+                title: res.title,
+                urlToImage: res.image,
+                keyword: res.keyword,
+                link: res.link,
+              };
+              setSavedCards([...savedCards, savedCard]);
+            } else {
+              setSavedCards((cardsList) =>
+                cardsList.filter((item) => item._id !== card._id)
+              );
+            }
+          })
+          .catch(console.log)
+      : setIsSignInPopupOpen(true); //else - open login popup
   }
 
   return (

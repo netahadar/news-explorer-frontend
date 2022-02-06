@@ -78,6 +78,9 @@
     font-weight: 400;
     line-height: 17px;
 }
+.popup__form-link:hover {
+  cursor: pointer;
+}
 
 @media screen and (max-width: 745px) {
   .popup__form {
