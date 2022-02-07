@@ -124,7 +124,8 @@ function App() {
           });
           setLoggedIn(true); //keep the user logged in
         }
-      });
+      })
+      .catch(console.log);
     }
   }, [token]);
 
