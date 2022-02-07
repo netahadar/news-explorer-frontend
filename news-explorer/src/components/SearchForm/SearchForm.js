@@ -28,6 +28,7 @@ export default function SearchForm({ onSearch }) {
           className="search__form-input"
           name="keyword"
           placeholder="Enter topic"
+          value={keyword}
           onChange={handleKeywordChange}
           required
         ></input>
