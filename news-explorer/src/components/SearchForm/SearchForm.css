@@ -72,7 +72,7 @@
     cursor: pointer;
 }
 
-.search__form-submit_active {
+.search__form-submit:active {
     background-color: #2A65CC;
 }
 

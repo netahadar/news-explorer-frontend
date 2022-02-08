@@ -1,25 +1,55 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import { useHistory } from "react-router";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import SavedNews from "../SavedNews/SavedNews";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import SigninPopup from "../SigninPopup/SigninPopup";
-import SignupPopup from "../SignupPopup/SignupPopup";
-import card1Path from "../../images/card1.jpg";
-import card2Path from "../../images/card2.jpg";
-import card3Path from "../../images/card3.jpg";
-import card4Path from "../../images/card4.jpg";
-import card5Path from "../../images/card5.jpg";
-import MobileNavigation from "../MobileNavigation/MobileNavigation";
-import { UserContext } from "../../context/UserContext";
+import Login from "../Login/Login";
+import Register from "../Register/Register";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { LoggedInContext } from "../../context/LoggdInContext";
+import newsApi from "../../utils/NewsApi";
+import * as auth from "../../utils/auth";
+import mainApi from "../../utils/MainApi";
 
 function App() {
-  //To-DO: make loggedin and cards lists as contexts
+  const [isMobile, setIsMobile] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({
+    name: "",
+    _id: "",
+  });
+  const [token, setToken] = React.useState(localStorage.getItem("jwt"));
+  const [cardIndex, setCardIndex] = React.useState(3); // index for use in slice method in search results block
+  const [isShowMoreActive, setIsShowMoreActive] = React.useState(true);
 
+  //Login / register errors states
+  const [resError, setResError] = React.useState("");
+  const [isError, setIsError] = React.useState(false);
+
+  //Popups open/close states
+  const [isTootipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
+  const [isSignInPopupOpen, setIsSignInPopupOpen] = React.useState(false);
+  const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
+  const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
+
+  //Cards states
+  const [cards, setCards] = React.useState([]);
+  const [savedCards, setSavedCards] = React.useState([]);
+  const [cardKeyword, setCardKeyword] = React.useState("");
+
+  //Sections appearance states
+  const [isNewsOpen, setIsNewsOpen] = React.useState(false);
+  const [isPreloaderOpen, setIsPreloaderOpen] = React.useState(false);
+  const [isErrorMessageOpen, setIsErrorMessageOpen] = React.useState(false);
+
+  const history = useHistory();
+
+  //Event listener for screen resize
   React.useEffect(() => {
     window.addEventListener("resize", handleScreenResize);
     return () => {
@@ -58,113 +88,58 @@ function App() {
     return () => document.removeEventListener("keydown", closeByClickOutside);
   }, []);
 
-  const [isMobile, setIsMobile] = React.useState(true);
-  const [loggedIn, setLoggedIn] = React.useState(true);
-  const [userName, setUserName] = React.useState("Elise");
+  //Show recent search results
+  React.useEffect(() => {
+    const recoveredCards = localStorage.getItem("cards");
 
-  //Popups open/close states
-  const [isTootipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
-  const [isSignInPopupOpen, setIsSignInPopupOpen] = React.useState(false);
-  const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
-  const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
+    if (recoveredCards) {
+      setCards(JSON.parse(recoveredCards));
+      setIsNewsOpen(true);
+    }
+  }, []);
 
-  const cards = [
-    {
-      image: `${card1Path}`,
-      date: "November 4, 2020",
-      title: "Everyone Needs a Special 'Sit Spot' in Nature",
-      text: `Ever since I read Richard Louv's influential book, "Last Child in the Woods," 
-    the idea of having a special "sit spot" has stuck with me. This advice, which Louv 
-    attributes to nature educator Jon Young, is for both adults and children to find...`,
-      source: "TREEHUGGER",
-      _id: "1",
-    },
-    {
-      image: `${card2Path}`,
-      date: "February 19, 2019",
-      title: "Nature makes you better",
-      text: `We all know how good nature can make us feel. We have known it for millennia: 
-    the sound of the ocean, the scents of a forest, the way dappled sunlight dances through leaves.`,
-      source: "NATIONAL GEOGRAPHIC",
-      _id: "2",
-    },
-    {
-      image: `${card3Path}`,
-      date: "October 19, 2020",
-      title: "Grand Teton Renews Historic Crest Trail",
-      text: `“The linking together of the Cascade and Death Canyon trails, at their heads, 
-    took place on October 1, 1933, and marked the first step in the realization of a plan 
-    whereby the hiker will be...`,
-      source: "NATIONAL PARKS TRAVELER",
-      _id: "3",
-    },
-    {
-      image: `${card3Path}`,
-      date: "October 19, 2020",
-      title: "Grand Teton Renews Historic Crest Trail",
-      text: `“The linking together of the Cascade and Death Canyon trails, at their heads, 
-    took place on October 1, 1933, and marked the first step in the realization of a plan 
-    whereby the hiker will be...`,
-      source: "NATIONAL PARKS TRAVELER",
-      _id: "4",
-    },
-  ];
+  //Retrive keyword to allow user keep saving cards after refresh
+  React.useEffect(() => {
+    if (localStorage.getItem("keyword")) {
+      setCardKeyword(localStorage.getItem("keyword"));
+    }
+  }, []);
 
-  const savedCards = [
-    {
-      image: `${card1Path}`,
-      date: "November 4, 2020",
-      title: "Everyone Needs a Special 'Sit Spot' in Nature",
-      text: `Ever since I read Richard Louv's influential book, "Last Child in the Woods," 
-  the idea of having a special "sit spot" has stuck with me. This advice, which Louv 
-  attributes to nature educator Jon Young, is for both adults and children to find...`,
-      source: "TREEHUGGER",
-      keyword: "Nature",
-      _id: "1",
-    },
-    {
-      image: `${card2Path}`,
-      date: "February 19, 2019",
-      title: "Nature makes you better",
-      text: `We all know how good nature can make us feel. We have known it for millennia: 
-  the sound of the ocean, the scents of a forest, the way dappled sunlight dances through leaves.`,
-      source: "NATIONAL GEOGRAPHIC",
-      keyword: "Nature",
-      _id: "2",
-    },
-    {
-      image: `${card4Path}`,
-      date: "October 19, 2020",
-      title: "Nostalgic Photos of Tourists in U.S. National Parks",
-      text: `Uri Løvevild Golman and Helle Løvevild Golman are National Geographic Explorers and conservation 
-      photographers who just completed a project and book they call their love letter to...`,
-      source: "NATIONAL GEOGRAPHIC",
-      keyword: "Yellowstone",
-      _id: "3",
-    },
-    {
-      image: `${card3Path}`,
-      date: "November 4, 2020",
-      title: "Grand Teton Renews Historic Crest Trail",
-      text: `“The linking together of the Cascade and Death Canyon trails, at their heads, 
-  took place on October 1, 1933, and marked the first step in the realization of a plan 
-  whereby the hiker will be...`,
-      source: "NATIONAL PARKS TRAVELER",
-      keyword: "Parks",
-      _id: "4",
-    },
-    {
-      image: `${card5Path}`,
-      date: "March 16, 2020",
-      title: "Scientists Don't Know Why Polaris Is So Weird",
-      text: `Humans have long relied on the starry sky to push into new frontiers, 
-      sail to the very edge of the world and find their way back home again. Even animals look to 
-      the stars to guide them. `,
-      source: "TREEHUGGER",
-      keyword: "Photography",
-      _id: "5",
-    },
-  ];
+  // Update mainApi headers with new token
+  React.useEffect(() => {
+    mainApi._headers = {
+      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+  }, [token]);
+
+  // Get user info
+  React.useEffect(() => {
+    if (token) {
+      mainApi.getUserInfo().then((res) => {
+        if (res) {
+          setCurrentUser({
+            name: res.name,
+            _id: res._id,
+          });
+          setLoggedIn(true); //keep the user logged in
+        }
+      })
+      .catch(console.log);
+    }
+  }, [token]);
+
+  //Get saved cards from server
+  React.useEffect(() => {
+    if (token) {
+      mainApi
+        .getSavedCards()
+        .then((res) => {
+          setSavedCards(res);
+        })
+        .catch(console.log);
+    }
+  }, [token]);
 
   function handleScreenResize() {
     if (window.innerWidth > 745) {
@@ -184,10 +159,39 @@ function App() {
     setIsSignUpPopupOpen(true);
   }
 
-  function handleRegister() {
-    //if register ok......
-    setIsSignUpPopupOpen(false);
-    setIsTooltipPopupOpen(true);
+  function handleRegister(values, resetForm) {
+    auth
+      .register(values)
+      .then(() => {
+        resetForm();
+        setIsSignUpPopupOpen(false);
+        setIsTooltipPopupOpen(true);
+      })
+      .catch((err) => {
+        setResError(err.message);
+        setIsError(true);
+      });
+  }
+
+  function handleLogin(values, resetForm) {
+    auth
+      .authorize(values)
+      .then((res) => {
+        setToken(res);
+        setLoggedIn(true);
+        resetForm();
+        history.push("/");
+        closeAllPopups();
+      })
+      .catch((err) => {
+        setResError(err.message);
+        setIsError(true);
+      });
+  }
+
+  function handleLogOut() {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
   }
 
   function handleMenuClick() {
@@ -199,14 +203,72 @@ function App() {
     setIsSignInPopupOpen(false);
     setIsSignUpPopupOpen(false);
     setIsTooltipPopupOpen(false);
+    setIsError(false); //Hide error message when mooving between Login and Register popups
   }
 
-  function handleLogOut() {
-    setLoggedIn(false);
+  function handleSearch(keyword) {
+    setCardKeyword(keyword); //Save keyword for use in handleSaveCard
+    setIsNewsOpen(false); //Close results block between searches
+    setIsErrorMessageOpen(false) // Hide server error message on search
+    setIsPreloaderOpen(true);
+    newsApi
+      .getArticles(keyword) //Get articles from news API
+      .then((res) => {
+        setCards(res.articles);
+        if (res.articles.length !== 0) {
+          localStorage.setItem("cards", JSON.stringify(res.articles)); //save cards in local storage for next mounting
+        } else {
+          localStorage.removeItem("cards"); //If no articles found- clear local storage
+        }
+        setIsPreloaderOpen(false);
+        setIsNewsOpen(true);
+      })
+      .catch((err) => {
+        setIsPreloaderOpen(false);
+        setIsErrorMessageOpen(true); //Show error message block
+        localStorage.removeItem("cards");
+        console.log(err);
+      });
+  }
+
+  function handleShowMoreClick() {
+    if (cards.length - cardIndex <= 3) {
+      setIsShowMoreActive(false);
+      setCardIndex(cards.length);
+    } else {
+      setCardIndex(cardIndex + 3);
+    }
+  }
+
+  function handleCardButtonClick(card, isSaved) {
+    loggedIn
+      ? mainApi //If user is logged in- send api request
+          .changeCardSaveStatus(card, isSaved, cardKeyword)
+          .then((res) => {
+            if (!res.message) {
+              const savedCard = {
+                _id: res._id,
+                description: res.text,
+                publishedAt: res.date,
+                source: { name: res.source },
+                title: res.title,
+                urlToImage: res.image,
+                keyword: res.keyword,
+                link: res.link,
+              };
+              setSavedCards([...savedCards, savedCard]);
+            } else {
+              setSavedCards((cardsList) =>
+                cardsList.filter((item) => item._id !== card._id)
+              );
+            }
+          })
+          .catch(console.log)
+      : setIsSignInPopupOpen(true); //Else - open login popup
   }
 
   return (
-    <UserContext.Provider value={userName}>
+    <CurrentUserContext.Provider value={currentUser}>
       <LoggedInContext.Provider value={loggedIn}>
         <div className="content">
           <Header
@@ -218,24 +280,44 @@ function App() {
             onLogOut={handleLogOut}
           />
           <Switch>
-            <Route path="/saved-news">
-              <SavedNews cards={cards} savedCards={savedCards} />
-            </Route>
+            <ProtectedRoute path="/saved-news" loggedIn={loggedIn}>
+              <SavedNews
+                cards={cards}
+                savedCards={savedCards}
+                onCardButtonClick={handleCardButtonClick}
+              />
+            </ProtectedRoute>
             <Route path="/">
-              <Main cards={cards} savedCards={savedCards} />
+              <Main
+                cards={cards}
+                savedCards={savedCards}
+                onSearch={handleSearch}
+                isNewsOpen={isNewsOpen}
+                isPreloaderOpen={isPreloaderOpen}
+                isErrorMessageOpen={isErrorMessageOpen}
+                isShowMoreActive={isShowMoreActive}
+                cardIndex={cardIndex}
+                onShowMoreClick={handleShowMoreClick}
+                onCardButtonClick={handleCardButtonClick}
+              />
             </Route>
           </Switch>
           <Footer />
-          <SigninPopup
+          <Login
             isOpen={isSignInPopupOpen}
             onClose={closeAllPopups}
             onSignUpClick={handleSignUpClick}
+            onSubmit={handleLogin}
+            isError={isError}
+            resError={resError}
           />
-          <SignupPopup
+          <Register
             isOpen={isSignUpPopupOpen}
             onClose={closeAllPopups}
             onSubmit={handleRegister}
             onSignInClick={handleSignInClick}
+            isError={isError}
+            resError={resError}
           />
           <InfoTooltip
             isOpen={isTootipPopupOpen}
@@ -245,7 +327,7 @@ function App() {
           />
         </div>
       </LoggedInContext.Provider>
-    </UserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

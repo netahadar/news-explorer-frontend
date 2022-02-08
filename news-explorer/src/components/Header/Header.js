@@ -2,6 +2,11 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import MobileNavigation from "../MobileNavigation/MobileNavigation";
 import Navigation from "../Navigation/Navigation";
+import {
+  DARK_TEXT_CLASS,
+  NAV_OPEN_CLASS,
+  HEADER_MENU_DARK_CLASS,
+} from "../../utils/constants";
 import "./Header.css";
 
 export default function Header({
@@ -10,19 +15,21 @@ export default function Header({
   onMenuClick,
   onClose,
   isNavOpen,
-  onLogOut
+  onLogOut,
 }) {
   const location = useLocation();
-
-  const darkTextClass = "header__text header__text_theme_dark";
-  const navOpenClass = "header__menu header__menu_state_open";
-  const headerMenuDark = "header__menu header__menu__theme_dark";
 
   return (
     <header className="header">
       <div className="header__container">
         <Link
-          className={`${isNavOpen  ?"header__text" :location.pathname === "/" ? "header__text" : darkTextClass}`}
+          className={`${
+            isNavOpen
+              ? "header__text"
+              : location.pathname === "/"
+              ? "header__text"
+              : DARK_TEXT_CLASS
+          }`}
           to="/"
         >
           NewsExplorer
@@ -30,23 +37,22 @@ export default function Header({
         {isMobile ? (
           <button
             className={`header__menu ${
-              isNavOpen  ?navOpenClass :location.pathname === "/saved-news" && headerMenuDark
+              isNavOpen
+                ? NAV_OPEN_CLASS
+                : location.pathname === "/saved-news" && HEADER_MENU_DARK_CLASS
             }`}
             type="button"
             onClick={isNavOpen ? onClose : onMenuClick}
           ></button>
         ) : (
-          <Navigation
-            onSignInClick={onSignInClick}
-            onLogOut={onLogOut}
-          />
+          <Navigation onSignInClick={onSignInClick} onLogOut={onLogOut} />
         )}
       </div>
       <MobileNavigation
-            isOpen={isNavOpen}
-            onSignInClick={onSignInClick}
-            onLogOut={onLogOut}
-          />
+        isOpen={isNavOpen}
+        onSignInClick={onSignInClick}
+        onLogOut={onLogOut}
+      />
     </header>
   );
 }

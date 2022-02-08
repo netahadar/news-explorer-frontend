@@ -1,35 +1,57 @@
 import React from "react";
 import "./SavedNews.css";
-import NewsCardList from "../NewCardList/NewsCardList";
-import { UserContext } from "../../context/UserContext";
+import NewsCardList from "../NewsCardList/NewsCardList";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
-export default function SavedNews({ cards, savedCards }) {
+export default function SavedNews({ cards, savedCards, onCardButtonClick }) {
+  const currentUser = React.useContext(CurrentUserContext);
 
-  const userName = React.useContext(UserContext);
-
-  // For tests:
-  const keywordsList = ["Nature", "Yellowstone", "word", "another word"]; 
-    
-  const keywords = keywordsList.slice(0, 2).join(", ");
-  const num = keywordsList.length - 2;
+  //Create a list of all articles keywords
+  let initialKeywordsList = [];
+  for (const obj of savedCards){
+    initialKeywordsList.push(obj.keyword);
+  }
+  // Count keywords occurrence and add to object
+  const keywordCount = initialKeywordsList.reduce(function(previous, current) {
+    previous[current] = (previous[current] || 0) + 1;
+    return previous;
+  }, {});;
+  //Sort keywords list by num of occurence
+  const keywordsList = Object.keys(keywordCount).sort(function(a, b) {
+    return keywordCount[b] - keywordCount[a];
+  });;
   
+  const firstKeywords = //Choose keywords to display
+    keywordsList.length <= 3
+      ? keywordsList.slice(0, 3)
+      : keywordsList.slice(0, 2);
+  const keywords = firstKeywords.join(", ");
+  const num = keywordsList.length - firstKeywords.length;
+
   return (
     <section className="saved-news">
       <div className="saved-news__caption">
         <p className="saved-news__text">Saved articles</p>
         <h2 className="saved-news__title">
-          {userName}, you have 5 saved articles
+          {currentUser.name}, you have {savedCards.length} saved articles
         </h2>
         <p className="saved-news__keywords">
           By keywords:
           <span>&nbsp;</span>
-          <span className="saved-news__keywords-span">
-             {keywords}, and {num} other
-          </span>
+          {keywordsList.length > 0 && (
+            <span className="saved-news__keywords-span">
+              {keywords}
+              {num > 0 ? `, and ${num} other` : ""}
+            </span>
+          )}
         </p>
       </div>
       <div className="saved-news__container">
-        <NewsCardList cards={cards} savedCards={savedCards} />
+        <NewsCardList
+          cards={cards}
+          savedCards={savedCards}
+          onCardButtonClick={onCardButtonClick}
+        />
       </div>
     </section>
   );

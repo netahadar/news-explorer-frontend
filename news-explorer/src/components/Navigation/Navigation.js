@@ -3,6 +3,11 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { LoggedInContext } from "../../context/LoggdInContext";
 import NavigationButton from "../NavigationButton/NavigationButton";
+import {
+  HOME_LINK_CLASS,
+  DARK_LINK_CLASS,
+  SAVED_ARTICLES_LINK_CLASS,
+} from "../../utils/constants";
 import "./Navigation.css";
 
 export default function Navigation({ onSignInClick, onLogOut }) {
@@ -10,16 +15,10 @@ export default function Navigation({ onSignInClick, onLogOut }) {
 
   const loggedIn = React.useContext(LoggedInContext);
 
-  const homeLinkClass = "header__navigate-link header__navigate-link_home";
-  const darkLinkClass =
-    "header__navigate-link header__navigate-link_theme_dark";
-  const savedArticlesLinkClass =
-    "header__navigate-link header__navigate-link_articles";
-
   return (
     <nav className="header__navigate">
       <Link
-        className={location.pathname === "/" ? homeLinkClass : darkLinkClass}
+        className={location.pathname === "/" ? HOME_LINK_CLASS : DARK_LINK_CLASS}
         to="/"
       >
         Home
@@ -29,17 +28,14 @@ export default function Navigation({ onSignInClick, onLogOut }) {
           className={
             location.pathname === "/"
               ? "header__navigate-link"
-              : savedArticlesLinkClass
+              : SAVED_ARTICLES_LINK_CLASS
           }
           to="/saved-news"
         >
           Saved Articles
         </Link>
       )}
-      <NavigationButton
-        onSignInClick={onSignInClick}
-        onLogOut={onLogOut}
-      />
+      <NavigationButton onSignInClick={onSignInClick} onLogOut={onLogOut} />
     </nav>
   );
 }
