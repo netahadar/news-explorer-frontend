@@ -5,7 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 import githubPath from "../../images/github.svg";
-import facebookPath from "../../images/facebook.svg";
+import linkedinPath from "../../images/linkedin.jpg";
 
 export default function Footer() {
   return (
@@ -27,8 +27,8 @@ export default function Footer() {
             <a className="footer__icon" href="https://github.com/netahadar" target="_blank">
               <img src={githubPath} alt="github"></img>
             </a>
-            <a className="footer__icon" href="https://facebook.com/" target="_blank">
-              <img src={facebookPath} alt="facebook"></img>
+            <a className="footer__icon" href="https://linkedin.com/in/neta-hadar-itzhak" target="_blank">
+              <img src={linkedinPath} alt="linkedin"></img>
             </a>
           </div>
         </nav>
